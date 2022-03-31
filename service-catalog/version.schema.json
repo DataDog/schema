@@ -1,6 +1,6 @@
 {
-  "$id": "https://github.com/DataDog/schema/tree/master/.version/schema.json",
-  "$schema": "https://raw.githubusercontent.com/DataDog/master/service-catalog/version.schema.json#",
+  "$id": "https://github.com/DataDog/schema/tree/main/.version/schema.json",
+  "$schema": "https://raw.githubusercontent.com/DataDog/main/service-catalog/version.schema.json#",
   "title": "All Service Catalog Definition Versions",
   "type": "object",
   "oneOf": [
@@ -14,7 +14,7 @@
           }
         },
         {
-          "$ref": "https://raw.githubusercontent.com/DataDog/master/service-catalog/v1/schema.json"
+          "$ref": "https://raw.githubusercontent.com/DataDog/main/service-catalog/v1/schema.json"
         }
       ]
     },
@@ -28,7 +28,7 @@
           }
         },
         {
-          "$ref": "https://raw.githubusercontent.com/DataDog/master/service-catalog/v2/schema.json"
+          "$ref": "https://raw.githubusercontent.com/DataDog/main/service-catalog/v2/schema.json"
         }
       ]
     }

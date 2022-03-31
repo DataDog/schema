@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://www.datadoghq.com/service-definition-schema.v1.json",
+  "$id": "https://github.com/DataDog/schema/tree/main/service-catalog/v1/schema.json",
   "title": "Service Definition Schema v1",
   "description": "A service definition for providing additional service metadata and integrations v1",
   "type": "object",
