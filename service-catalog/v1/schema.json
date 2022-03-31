@@ -5,6 +5,12 @@
   "description": "A service definition for providing additional service metadata and integrations v1",
   "type": "object",
   "properties": {
+    "schema-version": {
+      "description": "Schema version being used",
+      "type": "string",
+      "default": "v1",
+      "enum": ["v1"]
+    },
     "info": {
       "description": "Basic information about a service",
       "type": "object",

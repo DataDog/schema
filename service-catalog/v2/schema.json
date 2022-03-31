@@ -8,6 +8,7 @@
     "schema-version": {
       "description": "Schema version being used",
       "type": "string",
+      "default": "v2",
       "enum": ["v2"]
     },
     "dd-service": {
