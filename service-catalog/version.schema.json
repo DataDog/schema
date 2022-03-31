@@ -1,6 +1,6 @@
 {
-  "$id": "https://github.com/DataDog/schema/tree/main/.version/schema.json",
-  "$schema": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/version.schema.json#",
+  "$id": "https://github.com/DataDog/schema/tree/main/service-catalog/version.schema.json",
+  "$schema": "https://raw.githubusercontent.com/DataDog/schema/main/.version/schema.json#",
   "title": "All Service Catalog Definition Versions",
   "type": "object",
   "oneOf": [

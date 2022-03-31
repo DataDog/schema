@@ -1,0 +1,6 @@
+---
+schema-version: v2
+dd-service: abc
+contacts:
+  - type: email
+    contact: lei@agmail.com
