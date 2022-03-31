@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.datadoghq.com/service-definition-schema.v1.json",
+  "title": "Service Definition Schema v1",
+  "description": "A service definition for providing additional service metadata and integrations v1",
+  "type": "object",
+  "properties": {
+    "info": {
+      "description": "Basic information about a service",
+      "type": "object",
+      "properties": {
+        "dd-service": {
+          "description": "unique identifier of the service. Must be unique across all services and it used to match with a service in Datadog",
+          "type": "string"
+        },
+        "description": {
+          "description": "A short description of the service",
+          "type": "string"
+        },
+        "display-name": {
+          "description": "A friendly name of the service",
+          "type": "string"
+        },
+        "service-tier": {
+          "description": "Service tier",
+          "type": "string"
+        }
+      },
+      "required": ["dd-service"],
+      "additionalProperties": false
+    },
+    "org": {
+      "description": "Org related information about the service.",
+      "type": "object",
+      "properties": {
+        "team": {
+          "description": "Team that owns the service",
+          "type": "string"
+        },
+        "application": {
+          "description": "App feature for which this service supports",
+          "type": "string"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "contact": {
+      "description": "Contact information about the service. ",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "Service owner’s email",
+          "type": "string",
+          "format": "email"
+        },
+        "slack": {
+          "description": "Service owner’s slack channel",
+          "type": "string",
+          "pattern": "https:\/\/[a-zA-Z0-9_\\-]+.slack\\.com\/archives\/[a-zA-Z0-9_\\-]+"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "external-resources": {
+      "description": "A list of external links related to the services. ",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      },
+      "additionalProperties": false
+    },
+    "tags": {
+      "description": "A set of custom tags",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "additionalProperties": false
+    },
+    "integrations": {
+      "description": "Third party integrations that Datadog supports",
+      "type": "object",
+      "properties": {
+        "pagerduty": {
+          "description": "pagerduty service url for the service",
+          "type": "string",
+          "pattern": "https:\/\/[a-zA-Z0-9_\\-]+.pagerduty\\.com\/service-directory\/P[a-zA-Z0-9_\\-]+"
+        },
+        "github": {
+          "description": "The location of service’s github repo ",
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "extensions": {
+      "description": "Custom extensions",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false,
+  "required": ["info"],
+  "$defs": {
+    "resource": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Resource name",
+          "type": "string"
+        },
+        "type": {
+          "description": "Resource type",
+          "type": "string",
+          "enum": [
+            "doc",
+            "wiki",
+            "runbook",
+            "url",
+            "repo",
+            "dashboard",
+            "oncall",
+            "code",
+            "link"
+          ]
+        },
+        "url": {
+          "description": "Resource link",
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "url"
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$id": "https://github.com/DataDog/schema/tree/master/.version/schema.json",
+  "$schema": "https://raw.githubusercontent.com/DataDog/master/service-catalog/version.schema.json#",
+  "title": "All Service Catalog Definition Versions",
+  "type": "object",
+  "oneOf": [
+    {
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "const": "v1"
+            }
+          }
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/DataDog/master/service-catalog/v1/schema.json"
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "const": "v2"
+            }
+          }
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/DataDog/master/service-catalog/v2/schema.json"
+        }
+      ]
+    }
+  ]
+}
