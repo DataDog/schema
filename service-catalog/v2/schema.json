@@ -22,10 +22,10 @@
       "minLength": 1
     },
     "dd-team": {
-      "description": "Experimental feature. A team field that maps to Datadog Teams product",
+      "description": "Experimental feature. A Team handle that matches a Team in the Datadog Teams product.",
       "type": "string",
       "minLength": 1,
-      "pattern": "^[a-zA-Z][0-9a-zA-Z_.-]*$"
+      "pattern": "[^A-Z ]+"
     },
     "contacts": {
       "description": "A list of contacts related to the services. ",
