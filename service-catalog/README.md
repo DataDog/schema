@@ -1,5 +1,8 @@
-# Service Catalog Definition Schema 
-Service Catalog Definition Schema is used to define metadata about a service in Datadog's Service Catalog. The latest schema version is v2. 
+# Schema (v2)
+Service Catalog Definition Schema is a JSON Schema that can be used to define metadata about a service in Datadog's Service Catalog. The latest schema version is v2. The schema is often used to: 
+* Communicate a set of accepted metadata fields for a service
+* Provide client side valiations against user defined metadata files
+* Add auto completion and validation in popular IDEs for user defined metadata files
 
 # What is the Service Catalog?
 Service Catalog is a new Datadog product that allows you to easily manage service ownership at scale and identify dependencies in complex, microservice-based applications. Built on top of the unified Datadog observability platform, Service Catalog helps you:
