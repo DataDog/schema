@@ -93,6 +93,7 @@
               "enum": ["US", "EU"]
             }
           },
+          "required": ["service-id"],
           "additionalProperties": false
         }
       },
