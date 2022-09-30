@@ -76,8 +76,27 @@
           "examples": ["https://my-org.pagerduty.com/service-directory/PMyService"],
           "type": "string",
           "pattern": "https:\/\/[a-zA-Z0-9_\\-]+.pagerduty\\.com\/service-directory\/P[a-zA-Z0-9_\\-]+"
+        },
+        "opsgenie": {
+          "description": "Opsgenie integration for the service",
+          "type": "object",
+          "properties": {
+            "service-id": {
+              "description": "Opsgenie Service ID",
+              "examples": ["123e4567-e89b-12d3-a456-426614174000"],
+              "type": "string"
+            },
+            "region": {
+              "description": "Opsgenie Instance Region",
+              "type": "string",
+              "examples": ["US", "EU"],
+              "enum": ["US", "EU"]
+            }
+          },
+          "additionalProperties": false
         }
-      }
+      },
+      "additionalProperties": false
     },
     "extensions": {
       "description": "Custom extensions",
