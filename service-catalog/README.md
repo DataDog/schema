@@ -1,7 +1,7 @@
 # Schema (v2)
 Service Definition Schema is a JSON Schema that can be used to define metadata about a service in Datadog's Service Catalog. The latest schema version is v2. The schema is often used to: 
 * Communicate a set of accepted metadata fields for a service
-* Provide client side valiations against user defined metadata files
+* Provide client side validations against user defined metadata files
 * Add auto completion and validation in popular IDEs for user defined metadata files
 
 # What is the Service Catalog?
