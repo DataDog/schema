@@ -75,16 +75,17 @@
           "description": "pagerduty service url for the service",
           "examples": ["https://my-org.pagerduty.com/service-directory/PMyService"],
           "type": "string",
-          "pattern": "https:\/\/[a-zA-Z0-9_\\-.]+.pagerduty\\.com\/service-directory\/P[a-zA-Z0-9_\\-]+"
+          "pattern": "^(https?://)?[a-zA-Z\\d_\\-.]+\\.pagerduty\\.com/service-directory/(P[a-zA-Z\\d_\\-]+)/?$"
         },
         "opsgenie": {
           "description": "Opsgenie integration for the service",
           "type": "object",
           "properties": {
-            "service-id": {
-              "description": "Opsgenie Service ID",
-              "examples": ["123e4567-e89b-12d3-a456-426614174000"],
-              "type": "string"
+            "service-url": {
+              "description": "Opsgenie Service URL",
+              "examples": ["https://www.opsgenies.com/service/123e4567-e89b-12d3-a456-426614174000"],
+              "type": "string",
+              "pattern": "^(https?://)?[a-zA-Z\\d_\\-.]+\\.opsgenie\\.com/service/([a-zA-Z\\d_\\-]+)/?$"
             },
             "region": {
               "description": "Opsgenie Instance Region",
@@ -93,7 +94,7 @@
               "enum": ["US", "EU"]
             }
           },
-          "required": ["service-id"],
+          "required": ["service-url"],
           "additionalProperties": false
         }
       },
