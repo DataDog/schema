@@ -31,6 +31,20 @@
           "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v2/schema.json"
         }
       ]
+    },
+    {
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "const": "v2.1"
+            }
+          }
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v2.1/schema.json"
+        }
+      ]
     }
   ]
 }
