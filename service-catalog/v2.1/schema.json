@@ -13,16 +13,16 @@
 			"enum": ["v2.1"]
 		},
 		"dd-service": {
-			"description": "Unique identifier of the service. Must be unique across all services and it is used to match with a service in Datadog",
+			"description": "Unique identifier of the service. Must be unique across all services, and is used to match with a service in Datadog",
 			"examples": ["my-service"],
 			"type": "string"
 		},
-		"dd-team": {
-			"description": "Team that owns the service. It is used to match a team definedin Datadog",
+		"team": {
+			"description": "Team that owns the service. It is used to locate a team defined in Datadog Teams if it exists",
 			"examples": ["my-team"],
 			"type": "string"
 		},
-		"dd-application": {
+		"application": {
 			"description": "Identifier for a group of related services serving a product feature, which the service is a part of",
 			"examples": ["my-app"],
 			"type": "string"
@@ -53,7 +53,7 @@
 		},
 		"tags": {
 			"description": "A set of custom tags",
-			"examples": ["my:tag"],
+			"examples": [["my:tag"]],
 			"type": "array",
 			"items": {
 				"type": "string"
@@ -83,7 +83,7 @@
 					"properties": {
 						"service-url": {
 							"description": "Opsgenie Service URL",
-							"examples": ["https://www.opsgenies.com/service/123e4567-e89b-12d3-a456-426614174000"],
+							"examples": ["https://www.opsgenie.com/service/123e4567-e89b-12d3-a456-426614174000"],
 							"type": "string",
 							"pattern": "^(https?://)?[a-zA-Z\\d_\\-.]+\\.opsgenie\\.com/service/([a-zA-Z\\d_\\-]+)/?$"
 						},
@@ -141,8 +141,8 @@
 					"format": "uri"
 				},
 				"provider": {
-					"description": "Repo provider",
-					"examples": ["Github"],
+					"description": "Link provider",
+					"examples": ["Github", "Confluence"],
 					"type": "string"
 				}
 			},
@@ -174,7 +174,7 @@
 				},
 				"contact": {
 					"description": "Contact value",
-					"examples": ["contact@datadoghq.com", "http://my-org.slack.com/archives/my-channel"],
+					"examples": ["contact@datadoghq.com", "https://my-org.slack.com/archives/my-channel"],
 					"type": "string"
 				}
 			},
