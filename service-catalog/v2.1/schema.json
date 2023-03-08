@@ -37,6 +37,11 @@
 			"examples": ["1", "High"],
 			"type": "string"
 		},
+		"lifecycle": {
+			"description": "The current life cycle phase of the service.",
+			"examples": ["sandbox", "staging", "production", "deprecated"],
+			"type": "string"
+		},
 		"contacts": {
 			"description": "A list of contacts related to the services. ",
 			"type": "array",
@@ -120,18 +125,12 @@
 				},
 				"type": {
 					"description": "Link type",
-					"examples": ["runbook", "dashboard"],
+					"examples": ["runbook", "doc"],
 					"type": "string",
 					"enum": [
 						"doc",
-						"wiki",
 						"runbook",
-						"url",
-						"repo",
-						"dashboard",
-						"oncall",
-						"code",
-						"link"
+						"repo"
 					]
 				},
 				"url": {
@@ -148,7 +147,6 @@
 			},
 			"required": [
 				"name",
-				"type",
 				"url"
 			]
 		},
