@@ -130,7 +130,9 @@
 					"enum": [
 						"doc",
 						"runbook",
-						"repo"
+						"repo",
+						"dashboard",
+						"other"
 					]
 				},
 				"url": {
@@ -147,6 +149,7 @@
 			},
 			"required": [
 				"name",
+				"type",
 				"url"
 			]
 		},
