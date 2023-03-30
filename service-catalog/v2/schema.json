@@ -13,7 +13,7 @@
       "enum": ["v2"]
     },
     "dd-service": {
-      "description": "Unique identifier of the service. Must be unique across all services and it used to match with a service in Datadog",
+      "description": "Unique identifier of the service. Must be unique across all services, and is used to match with a service in Datadog",
       "examples": ["my-service"],
       "type": "string",
       "minLength": 1
@@ -61,7 +61,7 @@
     },
     "tags": {
       "description": "A set of custom tags",
-      "examples": ["my:tag"],
+      "examples": [["my:tag"]],
       "type": "array",
       "items": {
         "type": "string"
@@ -170,7 +170,7 @@
         },
         "contact": {
           "description": "Contact value",
-          "examples": ["contact@datadoghq.com", "http://my-org.slack.com/archives/my-channel"],
+          "examples": ["contact@datadoghq.com", "https://my-org.slack.com/archives/my-channel"],
           "type": "string"
         }
       },
