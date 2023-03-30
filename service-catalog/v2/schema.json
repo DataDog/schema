@@ -202,7 +202,7 @@
           "then": {
             "properties": {
               "contact": {
-                "pattern": "https:\/\/[a-zA-Z0-9_\\-]+.slack\\.com\/archives\/[a-zA-Z0-9_\\-]+"
+                "pattern": "https:\/\/[a-zA-Z0-9_\\-]+\\.slack\\.com\/archives\/[a-zA-Z0-9_\\-]+|slack:\/\/channel\\?team=[a-zA-Z0-9]+&id=[a-zA-Z0-9]+"
               }
             }
           }
