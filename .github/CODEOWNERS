@@ -4,3 +4,7 @@
 
 # All your base
 *                       @DataDog/service-catalog
+
+## Subdirectories
+service-catalog         @DataDog/service-catalog
+datadog-ci              @DataDog/datadog-ci

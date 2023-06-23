@@ -20,8 +20,8 @@ Check out our [onboarding guide](https://www.datadoghq.com) on how to get starte
 
 # Documentation 
 * [Product Overview](https://docs.datadoghq.com/tracing/faq/service_catalog/)
-* Setting up Service Catalog as an APM customer [Setting up Service Catalog as an APM * customer
-* Setting up Service Catalog as a non-APM customer [Setting up Service Catalog as a non-APM customer
+* Setting up Service Catalog as an APM customer
+* Setting up Service Catalog as a non-APM customer
 * Service Catalog API : Registering Services through the Datadog Service Definition API
 * Integrations 
 * JSON Schema Store 
