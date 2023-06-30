@@ -207,7 +207,7 @@
 					"then": {
 						"properties": {
 							"contact": {
-								"pattern": "https:\/\/[a-zA-Z0-9_\\-]+.slack\\.com\/archives\/[a-zA-Z0-9_\\-]+"
+								"pattern": "^https://.+"
 							}
 						}
 					}
