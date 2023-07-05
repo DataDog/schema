@@ -63,7 +63,7 @@
         "slack": {
           "description": "Service owner’s slack channel",
           "type": "string",
-          "pattern": "https:\/\/[a-zA-Z0-9_\\-]+.slack\\.com\/archives\/[a-zA-Z0-9_\\-]+"
+          "pattern": "^https://.+"
         }
       },
       "required": [],
