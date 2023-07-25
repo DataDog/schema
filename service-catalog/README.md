@@ -24,3 +24,4 @@ Check out our [onboarding guide](https://docs.datadoghq.com/tracing/service_cata
 * [Service Definition API](https://docs.datadoghq.com/api/latest/service-definition/)
 * [Understanding Your Service Configuration](https://docs.datadoghq.com/tracing/service_catalog/guides/understanding-service-configuration/)
 * [Troubleshooting Guide](https://docs.datadoghq.com/tracing/service_catalog/troubleshooting)
+* [JSON Schema Store](https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/version.schema.json)
