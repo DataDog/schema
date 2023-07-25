@@ -14,16 +14,14 @@ Service Catalog is a new Datadog product that allows you to easily manage servic
 ![service-catalog](../images/service-catalog.jpg)
 
 # Getting Started
-Check out our [onboarding guide](https://www.datadoghq.com) on how to get started. 
+Check out our [onboarding guide](https://docs.datadoghq.com/tracing/service_catalog/setup) on how to get started. 
 
 ![sc-getting-started](../images/sc-getting-started.png)
 
 # Documentation 
 * [Product Overview](https://docs.datadoghq.com/tracing/faq/service_catalog/)
-* Setting up Service Catalog as an APM customer [Setting up Service Catalog as an APM * customer
-* Setting up Service Catalog as a non-APM customer [Setting up Service Catalog as a non-APM customer
-* Service Catalog API : Registering Services through the Datadog Service Definition API
-* Integrations 
-* JSON Schema Store 
-* Troubleshooting 
-* Guides
+* [Service Definition Structure](https://docs.datadoghq.com/tracing/service_catalog/service_metadata_structure)
+* [Service Definition API](https://docs.datadoghq.com/api/latest/service-definition/)
+* [Understanding Your Service Configuration](https://docs.datadoghq.com/tracing/service_catalog/guides/understanding-service-configuration/)
+* [Troubleshooting Guide](https://docs.datadoghq.com/tracing/service_catalog/troubleshooting)
+* [JSON Schema Store](https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/version.schema.json)
