@@ -109,6 +109,14 @@
 			"description": "Custom extensions",
 			"type": "object",
 			"additionalProperties": true
+		},
+		"ci-pipeline-fingerprints": {
+			"description": "A list of CI pipelines related the service",
+			"examples": ["f0p38w-7RcOM", "jfCEikXCdrIs"],
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
 		}
 	},
 	"additionalProperties": false,
