@@ -44,7 +44,7 @@
 		},
 		"service-type": {
 			"description": "The type of service. See examples for a list of recognizable service typs",
-			"examples": ["database", "cache", "function", "web", "browser", "mobile", "spark"],
+			"examples": ["database", "cache", "function", "web", "browser", "mobile"],
 			"type": "string"
 		},
 		"languages": {
