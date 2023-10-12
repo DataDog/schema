@@ -42,10 +42,11 @@
 			"examples": ["sandbox", "staging", "production", "deprecated"],
 			"type": "string"
 		},
-		"service-type": {
-			"description": "The type of service. See examples for a list of recognizable service typs",
-			"examples": ["database", "cache", "function", "web", "browser", "mobile"],
-			"type": "string"
+		"type": {
+			"description": "The type of service",
+			"examples": ["web", "db", "cache", "function", "browser", "mobile", "custom"],
+			"type": "string",
+			"enum": ["web", "db", "cache", "function", "browser", "mobile", "custom"]
 		},
 		"languages": {
 			"description": "The service's programming language. See examples for a list of recognizable languages",
