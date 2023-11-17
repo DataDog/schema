@@ -1,0 +1,14 @@
+{
+  "properties": {
+    "hostname": {
+      "minLength": 1,
+      "title": "Hostname",
+      "type": "string"
+    }
+  },
+  "required": [
+    "hostname"
+  ],
+  "title": "Fields",
+  "type": "object"
+}
