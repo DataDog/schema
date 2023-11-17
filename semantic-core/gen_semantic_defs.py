@@ -1,5 +1,6 @@
 import json
 import os
+import logging
 from pydantic import BaseModel, Field
 
 class Fields(BaseModel):
@@ -20,8 +21,16 @@ def generate_schema(version):
 if __name__ == "__main__":
     import argparse
 
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
     parser = argparse.ArgumentParser(description="Generate schema JSON file.")
     parser.add_argument("version", type=str, help="Specify the version")
 
     args = parser.parse_args()
-    generate_schema(version=args.version)
+
+    try:
+        generate_schema(version=args.version)
+        logger.info(f"Schema successfully generated for version: {args.version}")
+    except Exception as e:
+        logger.error(f"Error generating schema: {e}")
