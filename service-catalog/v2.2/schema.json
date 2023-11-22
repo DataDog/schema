@@ -50,7 +50,7 @@
 		},
 		"languages": {
 			"description": "The service's programming language. See examples for a list of recognizable languages",
-			"examples": [["dotnet", "go", "java", "js", "php", "python", "ruby", "c++"]],
+			"examples": [["dotnet", "go", "java", "javascript", "php", "python", "ruby", "c++"]],
 			"type": "array",
 			"items": {
 				"type": "string"
