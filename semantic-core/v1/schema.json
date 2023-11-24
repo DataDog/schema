@@ -1,13 +1,96 @@
 {
+  "$defs": {
+    "SpanLink": {
+      "properties": {
+        "traceID": {
+          "title": "Traceid",
+          "type": "integer"
+        },
+        "traceID_high": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Traceid High"
+        },
+        "spanID": {
+          "title": "Spanid",
+          "type": "integer"
+        },
+        "attributes": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Attributes"
+        },
+        "tracestate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Tracestate"
+        },
+        "flags": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Flags"
+        }
+      },
+      "required": [
+        "traceID",
+        "traceID_high",
+        "spanID",
+        "attributes",
+        "tracestate",
+        "flags"
+      ],
+      "title": "SpanLink",
+      "type": "object"
+    }
+  },
   "properties": {
     "hostname": {
       "minLength": 1,
       "title": "Hostname",
       "type": "string"
+    },
+    "span_links": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/SpanLink"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Span Links"
     }
   },
   "required": [
-    "hostname"
+    "hostname",
+    "span_links"
   ],
   "title": "Fields",
   "type": "object"
