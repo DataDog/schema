@@ -1,10 +1,21 @@
 import json
 import os
 import logging
+
+from typing import List, Dict, Optional
 from pydantic import BaseModel, Field
+
+class Span_Link(BaseModel):
+    trace_id: int
+    traceID_high: Optional[int]
+    span_id: int
+    attributes: Optional[Dict]
+    tracestate: Optional[str]
+    flags: Optional[int]
 
 class Fields(BaseModel):
     hostname: str = Field(min_length=1)
+    span_links: Optional[List[Span_Link]]
 
 def generate_schema(version):
     json_schema_str = json.dumps(Fields.model_json_schema(), indent=2)
