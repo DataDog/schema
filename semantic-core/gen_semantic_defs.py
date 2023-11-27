@@ -289,7 +289,6 @@ class Schema(BaseModel):
 
 
 def generate_schema(version):
-    # json_schema_str = json.dumps(IntakeSpanPayload.model_json_schema(), indent=2)
     json_schema_str = json.dumps(Schema.model_json_schema(), indent=2)
 
     # Create the directory if it doesn't exist
