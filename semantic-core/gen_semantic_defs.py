@@ -277,7 +277,7 @@ class AgentPayload(BaseModel):
     Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto
     """
 
-    hostname: Annotated[
+    hostName: Annotated[
         Hostname,
         Field(
             default=None,
@@ -285,7 +285,7 @@ class AgentPayload(BaseModel):
             title="Hostname",
             description=textwrap.dedent(
                 """
-                The hostname of the host where the tracer is running."""
+                Hostname of where the agent is running."""
             ),
         ),
     ] = ...
