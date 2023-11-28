@@ -13,9 +13,10 @@ Hostname = Annotated[
     str,
     Field(
         description="""
-        A hostname is a label that is assigned to a device connected to a computer network and that is used to identify the device in various forms of electronic communication, such as the World Wide Web.""",
+        A hostname is a label that is assigned to a device connected to a computer network and that is used to identify the device in various forms of electronic communication, such as the World Wide Web.
+        An empty hostname is a valid value and it signals that Datadog has been able to explicitly collect that no hostname was available when the client side data was produced. This is different from a hostname not being available in a given payload, which signals that there may or may not have been a hostname available, but that data was simply not collected.""",
         examples=["my-hostname"],
-        min_length=1,
+        min_length=0,
         json_schema_extra={"is_sensitive": False},
     ),
 ]
@@ -103,10 +104,11 @@ IpAddress = Annotated[
     Field(
         description=textwrap.dedent(
             """
-            An IP address is a numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication."""
+            An IP address is a numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication.
+            We support both IPv4 and IPv6 addresses."""
         ),
         examples=["192.168.123.132"],
-        pattern=r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$",
+        pattern=r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}|(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$",
         json_schema_extra={"is_sensitive": True},
     ),
 ]
@@ -114,7 +116,7 @@ IpAddress = Annotated[
 # Semantic Models
 
 
-class IntakeHttpSpan(BaseModel):
+class IntakeResolvedHttpSpan(BaseModel):
     """
     Semantic model for the HTTP information present in a span during intake.
     """
@@ -265,7 +267,7 @@ class IntakeHttpSpan(BaseModel):
     ]
 
 
-class IntakeSpan(BaseModel):
+class IntakeResolvedSpan(BaseModel):
     hostname: Optional[
         Annotated[
             Hostname,
@@ -283,20 +285,21 @@ class IntakeSpan(BaseModel):
     ]
 
 
-class Schema(BaseModel):
-    intake_span: IntakeSpan
-    intake_http_span: IntakeHttpSpan
+def generate_schema(payload_type, version):
 
-
-def generate_schema(version):
-    json_schema_str = json.dumps(Schema.model_json_schema(), indent=2)
+    json_schema_str = json.dumps(payload_type.model_json_schema(), indent=2)
 
     # Create the directory if it doesn't exist
     output_dir = os.path.join(os.getcwd(), version)
     os.makedirs(output_dir, exist_ok=True)
 
+    snake_case_name = "".join(
+        ["_" + i.lower() if i.isupper() else i for i in payload_type.__name__]
+    ).lstrip("_")
+
     # Write the schema to the specified file
-    output_file = os.path.join(output_dir, "schema.json")
+    # output_file = os.path.join(output_dir, "schema.json")
+    output_file = os.path.join(output_dir, f"{snake_case_name}.json")
     with open(output_file, "w") as f:
         f.write(json_schema_str)
 
@@ -313,7 +316,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
-        generate_schema(version=args.version)
+        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan]
+
+        for pt in payload_types:
+            generate_schema(pt, version=args.version)
+
         logger.info(f"Schema successfully generated for version: {args.version}")
     except Exception as e:
         logger.error(f"Error generating schema: {e}")
