@@ -1,26 +1,19 @@
 {
+  "description": "Represents the generic information present in a span during intake.",
   "properties": {
-    "hostname": {
-      "anyOf": [
-        {
-          "description": "\nWhen the DD_TRACE_REPORT_HOSTNAME=true environment variable, or report_hostname are set by the user the tracing clients will collect the hostname directly from the process or OS to report to the trace agent.\nWhen _dd.hostname is present the trace agent will not use it\u2019s hostname for the trace.\nNote: this tag should only be set if configured to do so. It is disabled by default.",
-          "examples": [
-            "my-hostname"
-          ],
-          "is_sensitive": false,
-          "minLength": 0,
-          "title": "Hostname",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
+    "_dd.hostname": {
+      "description": "\nWhen the DD_TRACE_REPORT_HOSTNAME=true environment variable, or report_hostname are set by the user the tracing clients will collect the hostname directly from the process or OS to report to the trace agent.\nWhen _dd.hostname is present the trace agent will not use it\u2019s hostname for the trace.\nNote: this tag should only be set if configured to do so. It is disabled by default.",
+      "examples": [
+        "my-hostname"
       ],
-      "title": "Hostname"
+      "is_sensitive": false,
+      "minLength": 0,
+      "title": "Hostname",
+      "type": "string"
     }
   },
   "required": [
-    "hostname"
+    "_dd.hostname"
   ],
   "title": "IntakeResolvedSpan",
   "type": "object"
