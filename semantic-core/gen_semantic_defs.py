@@ -125,6 +125,7 @@ DbSystem = Annotated[
 
 # Semantic Models
 
+
 class IntakeResolvedHttpSpan(BaseModel):
     """
     Semantic model for the HTTP information present in a span during intake.
