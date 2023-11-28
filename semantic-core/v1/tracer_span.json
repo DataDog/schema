@@ -1,0 +1,20 @@
+{
+  "description": "Represents the generic information present in a span that's produced by a tracer.",
+  "properties": {
+    "hostName": {
+      "description": "\nThe hostname of the host where the tracer is running.",
+      "examples": [
+        "my-hostname"
+      ],
+      "is_sensitive": false,
+      "minLength": 0,
+      "title": "Hostname",
+      "type": "string"
+    }
+  },
+  "required": [
+    "hostName"
+  ],
+  "title": "TracerSpan",
+  "type": "object"
+}
