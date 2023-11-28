@@ -272,9 +272,9 @@ class IntakeResolvedSpan(BaseModel):
     ] = ...
 
 
-class TracerSpan(BaseModel):
+class AgentPayload(BaseModel):
     """
-    Represents the generic information present in a span that's produced by a tracer.
+    Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto
     """
 
     hostname: Annotated[
@@ -322,7 +322,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
-        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan, TracerSpan]
+        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan, AgentPayload]
 
         for pt in payload_types:
             generate_schema(pt, version=args.version)
