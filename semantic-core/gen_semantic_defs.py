@@ -3,7 +3,7 @@ import logging
 import os
 import textwrap
 
-from typing import Optional, List, Dict
+from typing import List, Dict
 
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated
@@ -307,12 +307,48 @@ class IntakeResolvedHttpSpan(BaseModel):
 
 
 class SpanLink(BaseModel):
-    traceID: TraceId
-    traceID_High: Optional[TraceId]
-    spanID: SpanId
-    attributes: Optional[Tags]
-    tracestate: Optional[TraceState]
-    flags: Optional[TraceFlags]
+    traceID: Annotated[
+        TraceId,
+        Field(
+            alias="traceID",
+            title="Trace ID",
+        )
+    ] = ...
+    traceID_High: Annotated[
+        TraceId,
+        Field(
+            alias="traceID_High",
+            title="Trace ID High",
+        )
+    ] = None
+    spanID: Annotated[
+        SpanId,
+        Field(
+            alias="spanID",
+            title="Span ID",
+        )
+    ] = None
+    attributes: Annotated[
+        Tags,
+        Field(
+            alias="attributes",
+            title="attributes",
+        )
+    ] = None
+    traceState: Annotated[
+        TraceState,
+        Field(
+            alias="traceState",
+            title="Trace State",
+        )
+    ] = None
+    flags: Annotated[
+        TraceFlags,
+        Field(
+            alias="flags",
+            title="Flags",
+        )
+    ] = None
 
 
 class IntakeResolvedSpan(BaseModel):
@@ -333,7 +369,13 @@ class IntakeResolvedSpan(BaseModel):
             ),
         ),
     ] = ...
-    spanLinks: Optional[List[SpanLink]] = ...
+    spanLinks: Annotated[
+        List[SpanLink],
+        Field(
+            alias="spanLinks",
+            title="Span Links",
+        )
+    ] = None
 
 
 class AgentPayload(BaseModel):
