@@ -336,7 +336,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.system",
             title="DB System",
-            description=DbSystem.__metadata__[0].description
         )
     ] = ...
     db_connection_string: Annotated[
@@ -344,7 +343,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.connection_string",
             title="DB Connection String",
-            description=DbConnectionString.__metadata__[0].description
         )
     ] = None
     db_user: Annotated[
@@ -352,7 +350,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.user",
             title="DB User",
-            description=DbUser.__metadata__[0].description
         )
     ] = None
     db_name: Annotated[
@@ -360,7 +357,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.name",
             title="DB Name",
-            description=DbName.__metadata__[0].description
         )
     ] = None
     db_statement: Annotated[
@@ -368,7 +364,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.statement",
             title="DB Statement",
-            description=DbStatement.__metadata__[0].description
         )
     ] = None
     db_operation: Annotated[
@@ -376,7 +371,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.operation",
             title="DB Operation",
-            description=DbOperation.__metadata__[0].description
         )
     ] = None
     db_sql_table: Annotated[
@@ -384,7 +378,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.sql.table",
             title="DB SQL Table",
-            description=DbSqlTable.__metadata__[0].description
         )
     ] = None
     db_row_count: Annotated[
@@ -392,7 +385,6 @@ class IntakeResolvedDbSpan(BaseModel):
         Field(
             alias="db.row_count",
             title="DB Row Count",
-            description=DbRowCount.__metadata__[0].description
         )
     ] = None
 
