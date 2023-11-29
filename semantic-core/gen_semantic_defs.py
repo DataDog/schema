@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import textwrap
+
 from typing import Optional, List, Dict
 
 from pydantic import BaseModel, Field
@@ -186,7 +187,7 @@ class IntakeResolvedHttpSpan(BaseModel):
                 Note: Although this is an integer, it must be sent as a string."""
             ),
         ),
-    ]
+    ] = ...
     http_url: Annotated[
         HttpUrl,
         Field(
@@ -197,7 +198,7 @@ class IntakeResolvedHttpSpan(BaseModel):
             The URL of the HTTP request, including the obfuscated query string."""
             ),
         ),
-    ]
+    ] = ...
     http_method: Annotated[
         HttpMethod,
         Field(
@@ -208,7 +209,7 @@ class IntakeResolvedHttpSpan(BaseModel):
             The HTTP method used for the connection. Required for both client and server spans."""
             ),
         ),
-    ]
+    ] = ...
     http_version: Annotated[
         HttpVersion,
         Field(
@@ -219,104 +220,90 @@ class IntakeResolvedHttpSpan(BaseModel):
             The version of HTTP used for the request."""
             ),
         ),
-    ]
-    http_route: Optional[
-        Annotated[
-            HttpRoute,
-            Field(
-                alias="http.route",
-                title="HTTP Route",
-                description=textwrap.dedent(
-                    """
+    ] = ...
+    http_route: Annotated[
+        HttpRoute,
+        Field(
+            alias="http.route",
+            title="HTTP Route",
+            description=textwrap.dedent(
+                """
             The matched route (path template).
             Only when span.kind: server."""
-                ),
             ),
-        ]
-    ]
-    http_client_ip: Optional[
-        Annotated[
-            IpAddress,
-            Field(
-                alias="http.client_ip",
-                title="HTTP Client IP",
-                description=textwrap.dedent(
-                    """
+        ),
+    ] = None
+    http_client_ip: Annotated[
+        IpAddress,
+        Field(
+            alias="http.client_ip",
+            title="HTTP Client IP",
+            description=textwrap.dedent(
+                """
             The IP address of the original client behind all proxies, if known (discovered from headers such as X-Forwarded-For)."""
-                ),
             ),
-        ]
-    ]
-    http_useragent: Optional[
-        Annotated[
-            HttpUserAgent,
-            Field(
-                alias="http.useragent",
-                title="HTTP User Agent",
-                description=textwrap.dedent(
-                    """
+        ),
+    ] = None
+    http_useragent: Annotated[
+        HttpUserAgent,
+        Field(
+            alias="http.useragent",
+            title="HTTP User Agent",
+            description=textwrap.dedent(
+                """
             The user agent header received with the request.
             Only when span.kind: server."""
-                ),
             ),
-        ]
-    ]
-    http_request_content_length: Optional[
-        Annotated[
-            HttpContentLength,
-            Field(
-                alias="http.request.content_length",
-                title="HTTP Request Content Length",
-                description=textwrap.dedent(
-                    """
+        ),
+    ] = None
+    http_request_content_length: Annotated[
+        HttpContentLength,
+        Field(
+            alias="http.request.content_length",
+            title="HTTP Request Content Length",
+            description=textwrap.dedent(
+                """
             The size of the request body.
             The size of the request payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the Content-Length header.
             For requests using transport encoding, this should be compressed size."""
-                ),
             ),
-        ]
-    ]
-    http_response_content_length: Optional[
-        Annotated[
-            HttpContentLength,
-            Field(
-                alias="http.response.content_length",
-                title="HTTP Response Content Length",
-                description=textwrap.dedent(
-                    """
+        ),
+    ] = None
+    http_response_content_length: Annotated[
+        HttpContentLength,
+        Field(
+            alias="http.response.content_length",
+            title="HTTP Response Content Length",
+            description=textwrap.dedent(
+                """
             The size of the response payload body in bytes.
             The size of the response payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the Content-Length header.
             For requests using transport encoding, this should be compressed size."""
-                ),
             ),
-        ]
-    ]
-    http_request_content_length_uncompressed: Optional[
-        Annotated[
-            HttpContentLength,
-            Field(
-                alias="http.request.content_length_uncompressed",
-                title="HTTP Request Content Length Uncompressed",
-                description=textwrap.dedent(
-                    """
+        ),
+    ] = None
+    http_request_content_length_uncompressed: Annotated[
+        HttpContentLength,
+        Field(
+            alias="http.request.content_length_uncompressed",
+            title="HTTP Request Content Length Uncompressed",
+            description=textwrap.dedent(
+                """
             The size of the request payload body after transport decoding. Not set if transport encoding not used."""
-                ),
             ),
-        ]
-    ]
-    http_response_content_length_uncompressed: Optional[
-        Annotated[
-            HttpContentLength,
-            Field(
-                alias="http.response.content_length_uncompressed",
-                title="HTTP Response Content Length Uncompressed",
-                description=textwrap.dedent(
-                    """
+        ),
+    ] = None
+    http_response_content_length_uncompressed: Annotated[
+        HttpContentLength,
+        Field(
+            alias="http.response.content_length_uncompressed",
+            title="HTTP Response Content Length Uncompressed",
+            description=textwrap.dedent(
+                """
             The size of the response payload body after transport decoding. Not set if transport encoding not used."""
-                ),
             ),
-        ]
-    ]
+        ),
+    ] = None
 
 
 class SpanLink(BaseModel):
@@ -329,22 +316,43 @@ class SpanLink(BaseModel):
 
 
 class IntakeResolvedSpan(BaseModel):
-    hostname: Optional[
-        Annotated[
-            Hostname,
-            Field(
-                alias="_dd.hostname",
-                title="Hostname",
-                description=textwrap.dedent(
-                    """
+    """
+    Represents the generic information present in a span during intake.
+    """
+
+    hostname: Annotated[
+        Hostname,
+        Field(
+            alias="_dd.hostname",
+            title="Hostname",
+            description=textwrap.dedent(
+                """
                 When the DD_TRACE_REPORT_HOSTNAME=true environment variable, or report_hostname are set by the user the tracing clients will collect the hostname directly from the process or OS to report to the trace agent.
                 When _dd.hostname is present the trace agent will not use it’s hostname for the trace.
                 Note: this tag should only be set if configured to do so. It is disabled by default."""
-                ),
             ),
-        ]
-    ]
-    spanLinks: Optional[List[SpanLink]]
+        ),
+    ] = ...
+    spanLinks: Optional[List[SpanLink]] = ...
+
+
+class AgentPayload(BaseModel):
+    """
+    Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto
+    """
+
+    hostName: Annotated[
+        Hostname,
+        Field(
+            default=None,
+            alias="hostName",
+            title="Hostname",
+            description=textwrap.dedent(
+                """
+                Hostname of where the agent is running."""
+            ),
+        ),
+    ] = ...
 
 
 def generate_schema(payload_type, version):
@@ -378,7 +386,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
-        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan]
+        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan, AgentPayload]
 
         for pt in payload_types:
             generate_schema(pt, version=args.version)
