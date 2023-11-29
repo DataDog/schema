@@ -50,12 +50,13 @@ TraceState = Annotated[
 ]
 
 TraceFlags = Annotated[
-    str,
+    int,
     Field(
         description="""
-        An 8-bit field (hex formatted) that controls tracing flags such as sampling, trace level, etc. These flags are recommendations given by the caller rather than strict rules to follow.
-        See https://www.w3.org/TR/trace-context/#trace-flags.""",
-        examples=["00", "ff", "a1"],
+        An 32-bit integer that controls tracing flags such as sampling, trace level, etc. These flags are recommendations given by the caller rather than strict rules to follow. Flags may include zero as valid value. The 31th bit must thus be set to distinguish unset vs zero value.""",
+        ge=0,
+        le=0xFFFFFFFF,
+        examples=[0, 4, 128, 4294967296],
         json_schema_extra={"is_sensitive": False},
     ),
 ]

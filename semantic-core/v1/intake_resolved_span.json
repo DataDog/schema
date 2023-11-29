@@ -84,14 +84,17 @@
         "flags": {
           "anyOf": [
             {
-              "description": "\n        An 8-bit field (hex formatted) that controls tracing flags such as sampling, trace level, etc. These flags are recommendations given by the caller rather than strict rules to follow.\n        See https://www.w3.org/TR/trace-context/#trace-flags.",
+              "description": "\n        An 32-bit integer that controls tracing flags such as sampling, trace level, etc. These flags are recommendations given by the caller rather than strict rules to follow. Flags may include zero as valid value. The 31th bit must thus be set to distinguish unset vs zero value.",
               "examples": [
-                "00",
-                "ff",
-                "a1"
+                0,
+                4,
+                128,
+                4294967296
               ],
               "is_sensitive": false,
-              "type": "string"
+              "maximum": 4294967295,
+              "minimum": 0,
+              "type": "integer"
             },
             {
               "type": "null"
