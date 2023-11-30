@@ -2,6 +2,7 @@
   "description": "Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto",
   "properties": {
     "hostName": {
+      "default": null,
       "description": "\nHostname of where the agent is running.",
       "examples": [
         "my-hostname"
@@ -10,11 +11,49 @@
       "minLength": 0,
       "title": "Hostname",
       "type": "string"
+    },
+    "env": {
+      "default": null,
+      "description": "Specifies the 'env' set in the agent's configuration.",
+      "minLength": 1,
+      "title": "Env",
+      "type": "string"
+    },
+    "tags": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": null,
+      "description": "Tags specifies tags common in all `tracerPayloads`",
+      "title": "Tags",
+      "type": "object"
+    },
+    "agentVersion": {
+      "default": null,
+      "description": "Specifies version of the agent",
+      "minLength": 1,
+      "title": "Agent Version",
+      "type": "string"
+    },
+    "targetTPS": {
+      "default": null,
+      "description": "Holds `TargetTPS` value in AgentConfig",
+      "title": "Target TPS",
+      "type": "number"
+    },
+    "errorTPS": {
+      "default": null,
+      "description": "Holds `ErrorTPS` value in AgentConfig",
+      "title": "Error TPS",
+      "type": "number"
+    },
+    "rareSamplerEnabled": {
+      "default": null,
+      "description": "Holds `RareSamplerEnabled` value in AgentConfig",
+      "title": "Rare Sampler Flag",
+      "type": "boolean"
     }
   },
-  "required": [
-    "hostName"
-  ],
   "title": "AgentPayload",
   "type": "object"
 }
