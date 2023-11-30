@@ -166,6 +166,82 @@ IpAddress = Annotated[
     ),
 ]
 
+DbSystem = Annotated[
+    str,
+    Field(
+        description="""An identifier for the database management system (DBMS) product being used.""",
+        examples=["mysql", "postgresql"],
+        pattern=r"^(adabas|buntdb|cache|cassandra|cloudscape|cockroachdb|coldfusion|consul|cosmosdb|couchbase|couchdb|db2|derby|dynamodb|edb|elasticsearch|eloquent|filemaker|firebird|firstsql|geode|h2|hanadb|hbase|hive|hsqldb|informix|ingres|instantdb|interbase|leveldb|mariadb|maxdb|memcached|mongodb|mssql|mysql|neo4j|netezza|opensearch|oracle|other_sql|pervasive|pointbase|postgresql|presto|progress|redis|redshift|snowflake|sqlite|sybase|teradata|vertica)$",
+        json_schema_extra={"is_sensitive": False},
+    ),
+]
+
+DbConnectionString = Annotated[
+    str,
+    Field(
+        description="The connection string used to connect to the database.",
+        examples=["Server=(localdb)\v11.0;Integrated Security=true;","postgresql://localhost:5432"],
+        json_schema_extra={"is_sensitive": True},
+    ),
+]
+
+DbUser = Annotated[
+    str,
+    Field(
+        description="Username for accessing the database.",
+        examples="widget_user",
+        json_schema_extra={"is_sensitive": False},
+    ),
+]
+
+DbName = Annotated[
+    str,
+    Field(
+        description="The name of the database being connected to.",
+        examples="customers",
+        json_schema_extra={"is_sensitive": False},
+    ),
+]
+
+DbStatement = Annotated[
+    str,
+    Field(
+        description="The database statement being executed.",
+        examples="""SELECT * FROM wuser_table', 'SET mykey "WuValue""",
+        json_schema_extra={"is_sensitive": True},
+    ),
+]
+
+DbOperation = Annotated[
+    str,
+    Field(
+        description="The name of the operation being executed, e.g. the MongoDB command name such as findAndModify, or the SQL keyword.",
+        examples=["findAndModify", "HMSET", "SELECT"],
+        json_schema_extra={"is_sensitive": False},
+    ),
+]
+
+DbSqlTable = Annotated[
+    str,
+    Field(
+        description="The name of the primary table that the operation is acting upon, including the database name (if applicable).",
+        examples=["customers"],
+        json_schema_extra={"is_sensitive": False},
+    ),
+]
+
+DbRowCount = Annotated[
+    int,
+    Field(
+        description=textwrap.dedent("""
+                                    The number of rows/results from the query or operation. For caches and other datastores, i.e. Redis, this tag should only set for operations that retrieve stored data,
+                                    such as GET operations and queries, excluding SET and other commands not returning data. """),
+        examples=["customers"],
+        ge=0,
+        json_schema_extra={"is_sensitive": False},
+    ),
+]
+
 # Semantic Models
 
 
@@ -305,6 +381,67 @@ class IntakeResolvedHttpSpan(BaseModel):
         ),
     ] = None
 
+class IntakeResolvedDbSpan(BaseModel):
+    """
+    Semantic model for the DB information present in a span during intake.
+    """
+    db_system: Annotated[
+        DbSystem,
+        Field(
+            alias="db.system",
+            title="DB System",
+        )
+    ] = ...
+    db_connection_string: Annotated[
+        DbConnectionString,
+        Field(
+            alias="db.connection_string",
+            title="DB Connection String",
+        )
+    ] = None
+    db_user: Annotated[
+        DbUser,
+        Field(
+            alias="db.user",
+            title="DB User",
+        )
+    ] = None
+    db_name: Annotated[
+        DbName,
+        Field(
+            alias="db.name",
+            title="DB Name",
+        )
+    ] = None
+    db_statement: Annotated[
+        DbStatement,
+        Field(
+            alias="db.statement",
+            title="DB Statement",
+        )
+    ] = None
+    db_operation: Annotated[
+        DbOperation,
+        Field(
+            alias="db.operation",
+            title="DB Operation",
+        )
+    ] = None
+    db_sql_table: Annotated[
+        DbSqlTable,
+        Field(
+            alias="db.sql.table",
+            title="DB SQL Table",
+        )
+    ] = None
+    db_row_count: Annotated[
+        DbRowCount,
+        Field(
+            alias="db.row_count",
+            title="DB Row Count",
+        )
+    ] = None
+
 
 class SpanLink(BaseModel):
     traceID: Annotated[
@@ -428,7 +565,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
-        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan, AgentPayload]
+        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan, IntakeResolvedDbSpan, AgentPayload]
 
         for pt in payload_types:
             generate_schema(pt, version=args.version)
