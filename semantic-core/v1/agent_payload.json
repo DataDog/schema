@@ -29,21 +29,20 @@
       "type": "object"
     },
     "agentVersion": {
-      "default": null,
       "description": "Specifies version of the agent",
       "minLength": 1,
       "title": "Agent Version",
       "type": "string"
     },
     "targetTPS": {
-      "default": null,
       "description": "Holds `TargetTPS` value in AgentConfig",
+      "exclusiveMinimum": 0.0,
       "title": "Target TPS",
       "type": "number"
     },
     "errorTPS": {
-      "default": null,
       "description": "Holds `ErrorTPS` value in AgentConfig",
+      "exclusiveMinimum": 0.0,
       "title": "Error TPS",
       "type": "number"
     },
@@ -54,6 +53,11 @@
       "type": "boolean"
     }
   },
+  "required": [
+    "agentVersion",
+    "targetTPS",
+    "errorTPS"
+  ],
   "title": "AgentPayload",
   "type": "object"
 }

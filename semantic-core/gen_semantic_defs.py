@@ -10,6 +10,7 @@ from typing_extensions import Annotated
 # Semantic Types
 
 NonEmptyString = Annotated[str, Field(min_length=1)]
+PositiveFloat = Annotated[float, Field(gt=0)]
 
 
 TraceId = Annotated[
@@ -492,23 +493,23 @@ class AgentPayload(BaseModel):
             title="Agent Version",
             description="""Specifies version of the agent""",
         ),
-    ] = None
+    ] = ...
     targetTPS: Annotated[
-        float,
+        PositiveFloat,
         Field(
             alias="targetTPS",
             title="Target TPS",
             description="""Holds `TargetTPS` value in AgentConfig""",
         ),
-    ] = None
+    ] = ...
     errorTPS: Annotated[
-        float,
+        PositiveFloat,
         Field(
             alias="errorTPS",
             title="Error TPS",
             description="""Holds `ErrorTPS` value in AgentConfig""",
         ),
-    ] = None
+    ] = ...
     rareSamplerEnabled: Annotated[
         bool,
         Field(
