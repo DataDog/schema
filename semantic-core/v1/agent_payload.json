@@ -1,4 +1,241 @@
 {
+  "$defs": {
+    "Span": {
+      "properties": {
+        "service": {
+          "description": "The name of the service with which this span is associated",
+          "title": "Service",
+          "type": "string"
+        },
+        "name": {
+          "description": "The operation name of this span",
+          "title": "Name",
+          "type": "string"
+        },
+        "resource": {
+          "description": "The resource name of this span, also sometimes called the endpoint (for web spans)",
+          "title": "Resource",
+          "type": "string"
+        },
+        "traceID": {
+          "description": "The ID of the trace to which this span belongs",
+          "examples": [
+            0,
+            12345,
+            543210,
+            9999999
+          ],
+          "is_sensitive": false,
+          "title": "Trace ID",
+          "type": "integer"
+        },
+        "spanID": {
+          "description": "The ID of this span",
+          "examples": [
+            0,
+            12345,
+            543210,
+            9999999
+          ],
+          "is_sensitive": false,
+          "title": "Span ID",
+          "type": "integer"
+        },
+        "parentID": {
+          "default": null,
+          "description": "The ID of this span's parent, or zero if this span has no parent",
+          "examples": [
+            0,
+            12345,
+            543210,
+            9999999
+          ],
+          "is_sensitive": false,
+          "title": "Parent ID",
+          "type": "integer"
+        },
+        "start": {
+          "description": "The number of nanoseconds between the Unix epoch and the beginning of this span",
+          "title": "Start",
+          "type": "integer"
+        },
+        "duration": {
+          "description": "The time length of this span in nanoseconds",
+          "title": "Duration",
+          "type": "integer"
+        },
+        "error": {
+          "default": null,
+          "description": "Error is 1 if there is an error associated with this span, or 0 if there is not",
+          "title": "Error",
+          "type": "integer"
+        },
+        "meta": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": null,
+          "description": "Meta is a mapping from tag name to tag value for string-valued tags",
+          "title": "Meta",
+          "type": "object"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "default": null,
+          "description": "Metrics is a mapping from tag name to tag value for numeric-valued tags",
+          "title": "Metrics",
+          "type": "object"
+        },
+        "type": {
+          "default": null,
+          "description": "Represents the type of the service with which this span is associated. Example values: `web`, `db`, `lambda`",
+          "title": "Type",
+          "type": "string"
+        },
+        "meta_struct": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "default": null,
+          "description": "Represents a registry of structured \"other\" data used by, e.g., AppSec",
+          "title": "Meta Struct",
+          "type": "object"
+        }
+      },
+      "required": [
+        "service",
+        "name",
+        "resource",
+        "traceID",
+        "spanID",
+        "start",
+        "duration"
+      ],
+      "title": "Span",
+      "type": "object"
+    },
+    "TraceChunk": {
+      "properties": {
+        "priority": {
+          "description": "Specifies the sampling priority of the trace",
+          "title": "Priority",
+          "type": "integer"
+        },
+        "origin": {
+          "default": null,
+          "description": "Specifies the origin product (`lambda`, `rum`, etc.) of the trace",
+          "title": "Origin",
+          "type": "string"
+        },
+        "spans": {
+          "description": "Specifies the list of containing spans",
+          "items": {
+            "$ref": "#/$defs/Span"
+          },
+          "title": "Spans",
+          "type": "array"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": null,
+          "description": "Specifies the list of tags common in all Spans",
+          "title": "Tags",
+          "type": "object"
+        },
+        "droppedTrace": {
+          "default": null,
+          "description": "Specifies whether the trace was dropped by samplers or not",
+          "title": "Dropped Trace",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "priority",
+        "spans"
+      ],
+      "title": "TraceChunk",
+      "type": "object"
+    },
+    "TracerPayload": {
+      "properties": {
+        "containerID": {
+          "default": null,
+          "description": "Specifies the ID of the container where the tracer is running on",
+          "title": "Container ID",
+          "type": "string"
+        },
+        "languageName": {
+          "description": "Specifies the language of the tracer",
+          "pattern": "^(golang|python|php|ruby|jvm|dotnet|js)$",
+          "title": "Language Name",
+          "type": "string"
+        },
+        "languageVersion": {
+          "description": "Specifies the language version of the tracer",
+          "title": "Language Version",
+          "type": "string"
+        },
+        "tracerVersion": {
+          "description": "Specifies the version of the tracer",
+          "title": "Tracer Version",
+          "type": "string"
+        },
+        "runtimeID": {
+          "default": null,
+          "description": "Specifies V4 UUID representation of a tracer session",
+          "title": "Runtime ID",
+          "type": "string"
+        },
+        "chunks": {
+          "description": "Specifies the list of containing trace chunks",
+          "items": {
+            "$ref": "#/$defs/TraceChunk"
+          },
+          "title": "Trace Chunks",
+          "type": "array"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": null,
+          "description": "Specifies the list of tags common in all Trace Chunks",
+          "title": "Trace Tags",
+          "type": "object"
+        },
+        "env": {
+          "description": "Specifies the `env` tag that is set in the tracer configuration",
+          "title": "Env",
+          "type": "string"
+        },
+        "hostname": {
+          "default": null,
+          "description": "Specifies the hostname where the tracer is running",
+          "title": "Hostname",
+          "type": "string"
+        },
+        "appVersion": {
+          "description": "Specifies the `version` tag that set in the tracer configuration",
+          "title": "App Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "languageName",
+        "languageVersion",
+        "tracerVersion",
+        "chunks",
+        "env",
+        "appVersion"
+      ],
+      "title": "TracerPayload",
+      "type": "object"
+    }
+  },
   "description": "Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto",
   "properties": {
     "hostName": {
@@ -51,12 +288,21 @@
       "description": "Holds `RareSamplerEnabled` value in AgentConfig",
       "title": "Rare Sampler Flag",
       "type": "boolean"
+    },
+    "tracerPayloads": {
+      "description": "Specifies the list of the payloads received from tracers",
+      "items": {
+        "$ref": "#/$defs/TracerPayload"
+      },
+      "title": "Tracer Payloads",
+      "type": "array"
     }
   },
   "required": [
     "agentVersion",
     "targetTPS",
-    "errorTPS"
+    "errorTPS",
+    "tracerPayloads"
   ],
   "title": "AgentPayload",
   "type": "object"

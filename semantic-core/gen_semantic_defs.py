@@ -417,6 +417,244 @@ class IntakeResolvedDbSpan(BaseModel):
     ] = None
 
 
+class Span(BaseModel):
+    service: Annotated[
+        str,
+        Field(
+            alias="service",
+            title="Service",
+            description="The name of the service with which this span is associated"
+        )
+    ]
+    name: Annotated[
+        str,
+        Field(
+            alias="name",
+            title="Name",
+            description="The operation name of this span"
+        )
+    ]
+    resource: Annotated[
+        str,
+        Field(
+            alias="resource",
+            title="Resource",
+            description="The resource name of this span, also sometimes called the endpoint (for web spans)"
+        )
+    ]
+    traceID: Annotated[
+        TraceId,
+        Field(
+            alias="traceID",
+            title="Trace ID",
+            description="The ID of the trace to which this span belongs"
+        )
+    ]
+    spanID: Annotated[
+        SpanId,
+        Field(
+            alias="spanID",
+            title="Span ID",
+            description="The ID of this span"
+        )
+    ]
+    parentID: Annotated[
+        SpanId,
+        Field(
+            alias="parentID",
+            title="Parent ID",
+            description="The ID of this span's parent, or zero if this span has no parent"
+        )
+    ] = None
+    start: Annotated[
+        int,
+        Field(
+            alias="start",
+            title="Start",
+            description="The number of nanoseconds between the Unix epoch and the beginning of this span"
+            # TODO: this can probably be validated better
+        )
+    ]
+    duration: Annotated[
+        int,
+        Field(
+            alias="duration",
+            title="Duration",
+            description="The time length of this span in nanoseconds"
+        )
+    ]
+    error: Annotated[
+        int,
+        Field(
+            alias="error",
+            title="Error",
+            description="Error is 1 if there is an error associated with this span, or 0 if there is not"
+        )
+    ] = None
+    meta: Annotated[
+        dict[str, str],
+        Field(
+            alias="meta",
+            title="Meta",
+            description="Meta is a mapping from tag name to tag value for string-valued tags"
+        )
+    ] = None
+    metrics: Annotated[
+        dict[str, float],
+        Field(
+            alias="metrics",
+            title="Metrics",
+            description="Metrics is a mapping from tag name to tag value for numeric-valued tags"
+        )
+    ] = None
+    type: Annotated[
+        str,
+        Field(
+            alias="type",
+            title="Type",
+            description="Represents the type of the service with which this span is associated. Example values: `web`, `db`, `lambda`"
+        )
+    ] = None
+    meta_struct: Annotated[
+        dict[str, int],
+        Field(
+            alias="meta_struct",
+            title="Meta Struct",
+            description="Represents a registry of structured \"other\" data used by, e.g., AppSec"
+        )
+    ] = None
+
+
+class TraceChunk(BaseModel):
+    priority: Annotated[
+        int,
+        Field(
+            alias="priority",
+            title="Priority",
+            description="Specifies the sampling priority of the trace"
+        )
+    ]
+    origin: Annotated[
+        str,
+        Field(
+            alias="origin",
+            title="Origin",
+            description="Specifies the origin product (`lambda`, `rum`, etc.) of the trace"
+        )
+    ] = None
+    spans: Annotated[
+        List[Span],
+        Field(
+            alias="spans",
+            title="Spans",
+            description="Specifies the list of containing spans"
+        )
+    ]
+    tags: Annotated[
+        dict[str, str],
+        Field(
+            alias="tags",
+            title="Tags",
+            description="Specifies the list of tags common in all Spans",
+        )
+    ] = None
+    droppedTrace: Annotated[
+        bool,
+        Field(
+            alias="droppedTrace",
+            title="Dropped Trace",
+            description="Specifies whether the trace was dropped by samplers or not",
+        )
+    ] = None
+
+
+class TracerPayload(BaseModel):
+    containerID: Annotated[
+        str,
+        Field(
+            alias="containerID",
+            title="Container ID",
+            description="Specifies the ID of the container where the tracer is running on"
+        )
+    ] = None
+    languageName: Annotated[
+        str,
+        Field(
+            alias="languageName",
+            title="Language Name",
+            description="Specifies the language of the tracer",
+            pattern=r"^(golang|python|php|ruby|jvm|dotnet|js)$",
+        )
+    ]
+    languageVersion: Annotated[
+        str,
+        Field(
+            alias="languageVersion",
+            title="Language Version",
+            description="Specifies the language version of the tracer",
+            # TODO: add pattern to validate version string
+        )
+    ]
+    tracerVersion: Annotated[
+        str,
+        Field(
+            alias="tracerVersion",
+            title="Tracer Version",
+            description="Specifies the version of the tracer",
+            # TODO: add pattern to validate version string
+        )
+    ]
+    runtimeID: Annotated[
+        str,
+        Field(
+            alias="runtimeID",
+            title="Runtime ID",
+            description="Specifies V4 UUID representation of a tracer session",
+            # TODO: add pattern to validate UUID
+        )
+    ] = None
+    chunks: Annotated[
+        List[TraceChunk],
+        Field(
+            alias="chunks",
+            title="Trace Chunks",
+            description="Specifies the list of containing trace chunks",
+        )
+    ]
+    tags: Annotated[
+        dict[str, str],
+        Field(
+            alias="tags",
+            title="Trace Tags",
+            description="Specifies the list of tags common in all Trace Chunks",
+        )
+    ] = None
+    env: Annotated[
+        str,
+        Field(
+            alias="env",
+            title="Env",
+            description="Specifies the `env` tag that is set in the tracer configuration",
+        )
+    ]
+    hostname: Annotated[
+        str,
+        Field(
+            alias="hostname",
+            title="Hostname",
+            description="Specifies the hostname where the tracer is running",
+        )
+    ] = None
+    appVersion: Annotated[
+        str,
+        Field(
+            alias="appVersion",
+            title="App Version",
+            description="Specifies the `version` tag that set in the tracer configuration",
+        )
+    ]
+
+
 class SpanLink(BaseModel):
     traceID: Annotated[TraceId, Field(alias="traceID", title="Trace ID")] = ...
     traceID_High: Annotated[
@@ -518,8 +756,14 @@ class AgentPayload(BaseModel):
             description="""Holds `RareSamplerEnabled` value in AgentConfig""",
         ),
     ] = None
-
-    # TODO: tracerPayloads
+    tracerPayloads: Annotated[
+        List[TracerPayload],
+        Field(
+            alias="tracerPayloads",
+            title="Tracer Payloads",
+            description="""Specifies the list of the payloads received from tracers""",
+        )
+    ]
 
 
 def generate_schema(payload_type, version):
