@@ -35,7 +35,7 @@ Tags = Annotated[
     Field(
         description="""
         This field represents an arbitrary map of key-value pairs.""",
-        examples=[{"foo":"bar", "key":"value"}],
+        examples=[{"foo": "bar", "key": "value"}],
         json_schema_extra={"is_sensitive": False},
     ),
 ]
@@ -91,7 +91,7 @@ HttpUrl = Annotated[
         description="""
         The URL on an HTTP request, including the obfuscated query string.""",
         examples=["https://example.com:443/search?q=datadog"],
-        min_length=1,
+        pattern=r"^[^?]+$",
         json_schema_extra={"is_sensitive": True},
     ),
 ]
@@ -180,7 +180,10 @@ DbConnectionString = Annotated[
     str,
     Field(
         description="The connection string used to connect to the database.",
-        examples=["Server=(localdb)\v11.0;Integrated Security=true;","postgresql://localhost:5432"],
+        examples=[
+            "Server=(localdb)\v11.0;Integrated Security=true;",
+            "postgresql://localhost:5432",
+        ],
         json_schema_extra={"is_sensitive": True},
     ),
 ]
@@ -233,9 +236,11 @@ DbSqlTable = Annotated[
 DbRowCount = Annotated[
     int,
     Field(
-        description=textwrap.dedent("""
+        description=textwrap.dedent(
+            """
                                     The number of rows/results from the query or operation. For caches and other datastores, i.e. Redis, this tag should only set for operations that retrieve stored data,
-                                    such as GET operations and queries, excluding SET and other commands not returning data. """),
+                                    such as GET operations and queries, excluding SET and other commands not returning data. """
+        ),
         examples=["customers"],
         ge=0,
         json_schema_extra={"is_sensitive": False},
@@ -381,111 +386,44 @@ class IntakeResolvedHttpSpan(BaseModel):
         ),
     ] = None
 
+
 class IntakeResolvedDbSpan(BaseModel):
     """
     Semantic model for the DB information present in a span during intake.
     """
-    db_system: Annotated[
-        DbSystem,
-        Field(
-            alias="db.system",
-            title="DB System",
-        )
-    ] = ...
+
+    db_system: Annotated[DbSystem, Field(alias="db.system", title="DB System")] = ...
     db_connection_string: Annotated[
         DbConnectionString,
-        Field(
-            alias="db.connection_string",
-            title="DB Connection String",
-        )
+        Field(alias="db.connection_string", title="DB Connection String"),
     ] = None
-    db_user: Annotated[
-        DbUser,
-        Field(
-            alias="db.user",
-            title="DB User",
-        )
-    ] = None
-    db_name: Annotated[
-        DbName,
-        Field(
-            alias="db.name",
-            title="DB Name",
-        )
-    ] = None
+    db_user: Annotated[DbUser, Field(alias="db.user", title="DB User")] = None
+    db_name: Annotated[DbName, Field(alias="db.name", title="DB Name")] = None
     db_statement: Annotated[
-        DbStatement,
-        Field(
-            alias="db.statement",
-            title="DB Statement",
-        )
+        DbStatement, Field(alias="db.statement", title="DB Statement")
     ] = None
     db_operation: Annotated[
-        DbOperation,
-        Field(
-            alias="db.operation",
-            title="DB Operation",
-        )
+        DbOperation, Field(alias="db.operation", title="DB Operation")
     ] = None
     db_sql_table: Annotated[
-        DbSqlTable,
-        Field(
-            alias="db.sql.table",
-            title="DB SQL Table",
-        )
+        DbSqlTable, Field(alias="db.sql.table", title="DB SQL Table")
     ] = None
     db_row_count: Annotated[
-        DbRowCount,
-        Field(
-            alias="db.row_count",
-            title="DB Row Count",
-        )
+        DbRowCount, Field(alias="db.row_count", title="DB Row Count")
     ] = None
 
 
 class SpanLink(BaseModel):
-    traceID: Annotated[
-        TraceId,
-        Field(
-            alias="traceID",
-            title="Trace ID",
-        )
-    ] = ...
+    traceID: Annotated[TraceId, Field(alias="traceID", title="Trace ID")] = ...
     traceID_High: Annotated[
-        TraceId,
-        Field(
-            alias="traceID_High",
-            title="Trace ID High",
-        )
+        TraceId, Field(alias="traceID_High", title="Trace ID High")
     ] = None
-    spanID: Annotated[
-        SpanId,
-        Field(
-            alias="spanID",
-            title="Span ID",
-        )
-    ] = None
-    attributes: Annotated[
-        Tags,
-        Field(
-            alias="attributes",
-            title="attributes",
-        )
-    ] = None
+    spanID: Annotated[SpanId, Field(alias="spanID", title="Span ID")] = None
+    attributes: Annotated[Tags, Field(alias="attributes", title="attributes")] = None
     traceState: Annotated[
-        TraceState,
-        Field(
-            alias="traceState",
-            title="Trace State",
-        )
+        TraceState, Field(alias="traceState", title="Trace State")
     ] = None
-    flags: Annotated[
-        TraceFlags,
-        Field(
-            alias="flags",
-            title="Flags",
-        )
-    ] = None
+    flags: Annotated[TraceFlags, Field(alias="flags", title="Flags")] = None
 
 
 class IntakeResolvedSpan(BaseModel):
@@ -507,11 +445,7 @@ class IntakeResolvedSpan(BaseModel):
         ),
     ] = ...
     spanLinks: Annotated[
-        List[SpanLink],
-        Field(
-            alias="spanLinks",
-            title="Span Links",
-        )
+        List[SpanLink], Field(alias="spanLinks", title="Span Links")
     ] = None
 
 
@@ -565,7 +499,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
-        payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan, IntakeResolvedDbSpan, AgentPayload]
+        payload_types = [
+            IntakeResolvedSpan,
+            IntakeResolvedHttpSpan,
+            IntakeResolvedDbSpan,
+            AgentPayload,
+        ]
 
         for pt in payload_types:
             generate_schema(pt, version=args.version)
