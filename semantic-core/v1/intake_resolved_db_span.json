@@ -26,7 +26,9 @@
     "db.user": {
       "default": null,
       "description": "Username for accessing the database.",
-      "examples": "widget_user",
+      "examples": [
+        "widget_user"
+      ],
       "is_sensitive": false,
       "title": "DB User",
       "type": "string"
@@ -34,7 +36,9 @@
     "db.name": {
       "default": null,
       "description": "The name of the database being connected to.",
-      "examples": "customers",
+      "examples": [
+        "customers"
+      ],
       "is_sensitive": false,
       "title": "DB Name",
       "type": "string"
@@ -42,7 +46,9 @@
     "db.statement": {
       "default": null,
       "description": "The database statement being executed.",
-      "examples": "SELECT * FROM wuser_table', 'SET mykey \"WuValue",
+      "examples": [
+        "SELECT * FROM wuser_table', 'SET mykey \"WuValue"
+      ],
       "is_sensitive": true,
       "title": "DB Statement",
       "type": "string"

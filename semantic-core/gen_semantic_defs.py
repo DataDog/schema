@@ -189,7 +189,7 @@ DbUser = Annotated[
     str,
     Field(
         description="Username for accessing the database.",
-        examples="widget_user",
+        examples=["widget_user"],
         json_schema_extra={"is_sensitive": False},
     ),
 ]
@@ -198,7 +198,7 @@ DbName = Annotated[
     str,
     Field(
         description="The name of the database being connected to.",
-        examples="customers",
+        examples=["customers"],
         json_schema_extra={"is_sensitive": False},
     ),
 ]
@@ -207,7 +207,7 @@ DbStatement = Annotated[
     str,
     Field(
         description="The database statement being executed.",
-        examples="""SELECT * FROM wuser_table', 'SET mykey "WuValue""",
+        examples=["""SELECT * FROM wuser_table', 'SET mykey "WuValue"""],
         json_schema_extra={"is_sensitive": True},
     ),
 ]
