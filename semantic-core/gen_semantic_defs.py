@@ -5,13 +5,13 @@ import textwrap
 from typing import List, Dict
 
 from pydantic import BaseModel, Field
+from pydantic.config import ConfigDict
 from typing_extensions import Annotated
 
 # Semantic Types
 
 NonEmptyString = Annotated[str, Field(min_length=1)]
 PositiveFloat = Annotated[float, Field(gt=0)]
-
 
 TraceId = Annotated[
     int,
@@ -417,7 +417,45 @@ class IntakeResolvedDbSpan(BaseModel):
     ] = None
 
 
+class HTTPTags(BaseModel):
+    span_kind: Annotated[
+        str,
+        Field(
+            alias="span.kind",
+            title="span.kind",
+            description="",
+            pattern=r"^(client|server)$",
+        )
+    ]
+    http_status_code: Annotated[
+        HttpStatusCode,
+        Field(
+            alias="http.status_code",
+            title="http.status_code",
+        )
+    ]
+
+
+class DBTags(BaseModel):
+    pass
+
+
 class Span(BaseModel):
+    model_config = ConfigDict(
+        # json_schema_extra={
+        #     'allOf': [
+        #         {
+        #             'if': {'properties': {'type': {'const': 'web'}}},
+        #             'then': {'properties': {'meta': {'$ref': '#/$defs/HTTPTags'}}},
+        #         },
+        #         {
+        #             'if': {'properties': {'type': {'const': 'db'}}},
+        #             'then': {'properties': {'meta': {'$ref': '#/$defs/DBTags'}}},
+        #         },
+        #     ]
+        # }
+    )
+
     service: Annotated[
         str,
         Field(
@@ -443,7 +481,7 @@ class Span(BaseModel):
         )
     ]
     traceID: Annotated[
-        TraceId,
+        str,  # TODO: find out why these are sent as string
         Field(
             alias="traceID",
             title="Trace ID",
@@ -451,7 +489,7 @@ class Span(BaseModel):
         )
     ]
     spanID: Annotated[
-        SpanId,
+        str,  # TODO: find out why these are sent as string
         Field(
             alias="spanID",
             title="Span ID",
@@ -459,7 +497,7 @@ class Span(BaseModel):
         )
     ]
     parentID: Annotated[
-        SpanId,
+        str,  # TODO: find out why these are sent as string
         Field(
             alias="parentID",
             title="Parent ID",
@@ -467,7 +505,7 @@ class Span(BaseModel):
         )
     ] = None
     start: Annotated[
-        int,
+        str,  # TODO: find out why these are sent as string
         Field(
             alias="start",
             title="Start",
@@ -476,7 +514,7 @@ class Span(BaseModel):
         )
     ]
     duration: Annotated[
-        int,
+        str,  # TODO: find out why these are sent as string
         Field(
             alias="duration",
             title="Duration",
@@ -695,6 +733,9 @@ class AgentPayload(BaseModel):
     """
     Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto
     """
+    # adding this here since otherwise these models are not included in the $defs object
+    http_tags: HTTPTags = None
+    db_tags: DBTags = None
 
     hostName: Annotated[
         Hostname,
@@ -767,7 +808,6 @@ class AgentPayload(BaseModel):
 
 
 def generate_schema(payload_type, version):
-
     json_schema_str = json.dumps(payload_type.model_json_schema(), indent=2)
 
     # Create the directory if it doesn't exist
@@ -796,17 +836,14 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    try:
-        payload_types = [
-            IntakeResolvedSpan,
-            IntakeResolvedHttpSpan,
-            IntakeResolvedDbSpan,
-            AgentPayload,
-        ]
+    payload_types = [
+        IntakeResolvedSpan,
+        IntakeResolvedHttpSpan,
+        IntakeResolvedDbSpan,
+        AgentPayload,
+    ]
 
-        for pt in payload_types:
-            generate_schema(pt, version=args.version)
+    for pt in payload_types:
+        generate_schema(pt, version=args.version)
 
-        logger.info(f"Schema successfully generated for version: {args.version}")
-    except Exception as e:
-        logger.error(f"Error generating schema: {e}")
+    logger.info(f"Schema successfully generated for version: {args.version}")

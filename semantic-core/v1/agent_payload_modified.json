@@ -14,7 +14,7 @@
           "type": "string"
         },
         "http.status_code": {
-          "description": "\n        The HTTP response status code.",
+          "description": "\nThe HTTP response status code.\nWhen span.kind: client the response status code received.\nWhen span.kind: server the response status code sent.\nNote: Although this is an integer, it must be sent as a string.",
           "examples": [
             "200",
             "404",
@@ -22,7 +22,7 @@
           ],
           "is_sensitive": false,
           "pattern": "^[12345]\\d\\d$",
-          "title": "http.status_code",
+          "title": "HTTP Status Code",
           "type": "string"
         }
       },
@@ -53,28 +53,28 @@
         "traceID": {
           "description": "The ID of the trace to which this span belongs",
           "title": "Trace ID",
-          "type": "string"
+          "type": "integer"
         },
         "spanID": {
           "description": "The ID of this span",
           "title": "Span ID",
-          "type": "string"
+          "type": "integer"
         },
         "parentID": {
           "default": null,
           "description": "The ID of this span's parent, or zero if this span has no parent",
           "title": "Parent ID",
-          "type": "string"
+          "type": "integer"
         },
         "start": {
           "description": "The number of nanoseconds between the Unix epoch and the beginning of this span",
           "title": "Start",
-          "type": "string"
+          "type": "integer"
         },
         "duration": {
           "description": "The time length of this span in nanoseconds",
           "title": "Duration",
-          "type": "string"
+          "type": "integer"
         },
         "error": {
           "default": null,
@@ -126,7 +126,27 @@
         "duration"
       ],
       "title": "Span",
-      "type": "object"
+      "type": "object",
+      "allOf": [
+        {
+          "if": {"not": {"properties": {"type": {"enum": ["web", "db"]}}}},
+          "then": {"properties": {"meta": {"type": "object", "additionalProperties": {"type": "string"}}}}
+        },
+        {
+          "if": {
+            "properties": {"type": {"const": "web"}},
+            "required": ["type"]
+          },
+          "then": {"properties": {"meta": {"$ref": "#/$defs/HTTPTags"}}}
+        },
+        {
+          "if": {
+            "properties": {"type": {"const": "db"}},
+            "required": ["type"]
+          },
+          "then": {"properties": {"meta": {"$ref": "#/$defs/DBTags"}}}
+        }
+      ]
     },
     "TraceChunk": {
       "properties": {
@@ -182,7 +202,7 @@
         },
         "languageName": {
           "description": "Specifies the language of the tracer",
-          "pattern": "^(golang|python|php|ruby|jvm|dotnet|js)$",
+          "pattern": "^(go|python|php|ruby|jvm|dotnet|js)$",
           "title": "Language Name",
           "type": "string"
         },
@@ -250,22 +270,6 @@
   },
   "description": "Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto",
   "properties": {
-    "http_tags": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/HTTPTags"
-        }
-      ],
-      "default": null
-    },
-    "db_tags": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/DBTags"
-        }
-      ],
-      "default": null
-    },
     "hostName": {
       "default": null,
       "description": "\nHostname of where the agent is running.",
