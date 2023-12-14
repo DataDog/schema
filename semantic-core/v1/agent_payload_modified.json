@@ -202,7 +202,7 @@
         },
         "languageName": {
           "description": "Specifies the language of the tracer",
-          "pattern": "^(go|python|php|ruby|jvm|dotnet|js)$",
+          "pattern": "^(go|python|php|ruby|java|dotnet|js)$",
           "title": "Language Name",
           "type": "string"
         },
