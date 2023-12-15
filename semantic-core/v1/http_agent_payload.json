@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "httpUrl": {
+      "default": null,
+      "description": "\nThe URL of the HTTP request, including the query string.",
+      "examples": [
+        "https://example.com:443/search?q=datadog"
+      ],
+      "is_sensitive": true,
+      "minLength": 1,
+      "title": "HTTP URL",
+      "type": "string"
+    }
+  },
+  "title": "HttpAgentPayload",
+  "type": "object"
+}

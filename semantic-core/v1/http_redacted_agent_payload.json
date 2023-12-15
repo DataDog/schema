@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "httpUrl": {
+      "default": null,
+      "description": "\nThe URL of the HTTP request, excluding the query string.",
+      "examples": [
+        "https://example.com:443/search"
+      ],
+      "is_sensitive": true,
+      "minLength": 1,
+      "pattern": "^[^?]+$",
+      "title": "HTTP URL",
+      "type": "string"
+    }
+  },
+  "title": "HttpRedactedAgentPayload",
+  "type": "object"
+}

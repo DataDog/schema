@@ -477,7 +477,22 @@ class AgentPayload(BaseModel):
     ] = ...
 
 
-class HttpTruncatedUrlAgentPayload(BaseModel):
+class HttpAgentPayload(BaseModel):
+    httpUrl: Annotated[
+        HttpUrl,
+        Field(
+            default=None,
+            alias="httpUrl",
+            title="HTTP URL",
+            description=textwrap.dedent(
+                """
+            The URL of the HTTP request, including the query string."""
+            ),
+        ),
+    ] = None
+
+
+class HttpRedactedAgentPayload(BaseModel):
     httpUrl: Annotated[
         TruncatedHttpUrl,
         Field(
@@ -486,7 +501,7 @@ class HttpTruncatedUrlAgentPayload(BaseModel):
             title="HTTP URL",
             description=textwrap.dedent(
                 """
-            The URL of the HTTP request, excluding the obfuscated query string."""
+            The URL of the HTTP request, excluding the query string."""
             ),
         ),
     ] = None
@@ -528,7 +543,8 @@ if __name__ == "__main__":
             IntakeResolvedHttpSpan,
             IntakeResolvedDbSpan,
             AgentPayload,
-            HttpTruncatedUrlAgentPayload,
+            HttpAgentPayload,
+            HttpRedactedAgentPayload,
         ]
 
         for pt in payload_types:
