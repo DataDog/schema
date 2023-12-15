@@ -19,7 +19,7 @@
         "https://example.com:443/search?q=datadog"
       ],
       "is_sensitive": true,
-      "pattern": "^[^?]+$",
+      "minLength": 1,
       "title": "HTTP URL",
       "type": "string"
     },

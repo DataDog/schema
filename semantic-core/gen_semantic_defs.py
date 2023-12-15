@@ -2,7 +2,6 @@ import json
 import logging
 import os
 import textwrap
-
 from typing import List, Dict
 
 from pydantic import BaseModel, Field
@@ -89,10 +88,20 @@ HttpUrl = Annotated[
     str,
     Field(
         description="""
-        The URL on an HTTP request, including the obfuscated query string.""",
+        The URL on an HTTP request, including the query string.""",
         examples=["https://example.com:443/search?q=datadog"],
-        pattern=r"^[^?]+$",
+        min_length=1,
         json_schema_extra={"is_sensitive": True},
+    ),
+]
+
+TruncatedHttpUrl = Annotated[
+    HttpUrl,
+    Field(
+        description="""
+        The URL on an HTTP request, excluding the query string.""",
+        examples=["https://example.com:443/search"],
+        pattern=r"^[^?]+$",
     ),
 ]
 
@@ -468,6 +477,21 @@ class AgentPayload(BaseModel):
     ] = ...
 
 
+class HttpTruncatedUrlAgentPayload(BaseModel):
+    httpUrl: Annotated[
+        TruncatedHttpUrl,
+        Field(
+            default=None,
+            alias="httpUrl",
+            title="HTTP URL",
+            description=textwrap.dedent(
+                """
+            The URL of the HTTP request, excluding the obfuscated query string."""
+            ),
+        ),
+    ] = None
+
+
 def generate_schema(payload_type, version):
 
     json_schema_str = json.dumps(payload_type.model_json_schema(), indent=2)
@@ -504,6 +528,7 @@ if __name__ == "__main__":
             IntakeResolvedHttpSpan,
             IntakeResolvedDbSpan,
             AgentPayload,
+            HttpTruncatedUrlAgentPayload,
         ]
 
         for pt in payload_types:
