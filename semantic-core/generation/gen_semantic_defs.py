@@ -5,7 +5,6 @@ import logging
 import os
 import re
 import textwrap
-
 from typing import List, Dict
 
 from pydantic import BaseModel, Field
@@ -17,6 +16,10 @@ logger = logging.getLogger(__name__)
 
 
 # Semantic Types
+
+NonEmptyString = Annotated[str, Field(min_length=1)]
+PositiveFloat = Annotated[float, Field(gt=0)]
+
 
 TraceId = Annotated[
     int,
@@ -43,7 +46,7 @@ Tags = Annotated[
     Field(
         description="""
         This field represents an arbitrary map of key-value pairs.""",
-        examples=[{"foo":"bar", "key":"value"}],
+        examples=[{"foo": "bar", "key": "value"}],
         json_schema_extra={"is_sensitive": False},
     ),
 ]
@@ -188,7 +191,10 @@ DbConnectionString = Annotated[
     str,
     Field(
         description="The connection string used to connect to the database.",
-        examples=["Server=(localdb)\v11.0;Integrated Security=true;","postgresql://localhost:5432"],
+        examples=[
+            "Server=(localdb)\v11.0;Integrated Security=true;",
+            "postgresql://localhost:5432",
+        ],
         json_schema_extra={"is_sensitive": True},
     ),
 ]
@@ -241,14 +247,17 @@ DbSqlTable = Annotated[
 DbRowCount = Annotated[
     int,
     Field(
-        description=textwrap.dedent("""
+        description=textwrap.dedent(
+            """
                                     The number of rows/results from the query or operation. For caches and other datastores, i.e. Redis, this tag should only set for operations that retrieve stored data,
-                                    such as GET operations and queries, excluding SET and other commands not returning data. """),
+                                    such as GET operations and queries, excluding SET and other commands not returning data. """
+        ),
         examples=["customers"],
         ge=0,
         json_schema_extra={"is_sensitive": False},
     ),
 ]
+
 
 # Semantic Models
 
@@ -389,111 +398,44 @@ class IntakeResolvedHttpSpan(BaseModel):
         ),
     ] = None
 
+
 class IntakeResolvedDbSpan(BaseModel):
     """
     Semantic model for the DB information present in a span during intake.
     """
-    db_system: Annotated[
-        DbSystem,
-        Field(
-            alias="db.system",
-            title="DB System",
-        )
-    ] = ...
+
+    db_system: Annotated[DbSystem, Field(alias="db.system", title="DB System")] = ...
     db_connection_string: Annotated[
         DbConnectionString,
-        Field(
-            alias="db.connection_string",
-            title="DB Connection String",
-        )
+        Field(alias="db.connection_string", title="DB Connection String"),
     ] = None
-    db_user: Annotated[
-        DbUser,
-        Field(
-            alias="db.user",
-            title="DB User",
-        )
-    ] = None
-    db_name: Annotated[
-        DbName,
-        Field(
-            alias="db.name",
-            title="DB Name",
-        )
-    ] = None
+    db_user: Annotated[DbUser, Field(alias="db.user", title="DB User")] = None
+    db_name: Annotated[DbName, Field(alias="db.name", title="DB Name")] = None
     db_statement: Annotated[
-        DbStatement,
-        Field(
-            alias="db.statement",
-            title="DB Statement",
-        )
+        DbStatement, Field(alias="db.statement", title="DB Statement")
     ] = None
     db_operation: Annotated[
-        DbOperation,
-        Field(
-            alias="db.operation",
-            title="DB Operation",
-        )
+        DbOperation, Field(alias="db.operation", title="DB Operation")
     ] = None
     db_sql_table: Annotated[
-        DbSqlTable,
-        Field(
-            alias="db.sql.table",
-            title="DB SQL Table",
-        )
+        DbSqlTable, Field(alias="db.sql.table", title="DB SQL Table")
     ] = None
     db_row_count: Annotated[
-        DbRowCount,
-        Field(
-            alias="db.row_count",
-            title="DB Row Count",
-        )
+        DbRowCount, Field(alias="db.row_count", title="DB Row Count")
     ] = None
 
 
 class SpanLink(BaseModel):
-    traceID: Annotated[
-        TraceId,
-        Field(
-            alias="traceID",
-            title="Trace ID",
-        )
-    ] = ...
+    traceID: Annotated[TraceId, Field(alias="traceID", title="Trace ID")] = ...
     traceID_High: Annotated[
-        TraceId,
-        Field(
-            alias="traceID_High",
-            title="Trace ID High",
-        )
+        TraceId, Field(alias="traceID_High", title="Trace ID High")
     ] = None
-    spanID: Annotated[
-        SpanId,
-        Field(
-            alias="spanID",
-            title="Span ID",
-        )
-    ] = None
-    attributes: Annotated[
-        Tags,
-        Field(
-            alias="attributes",
-            title="attributes",
-        )
-    ] = None
+    spanID: Annotated[SpanId, Field(alias="spanID", title="Span ID")] = None
+    attributes: Annotated[Tags, Field(alias="attributes", title="attributes")] = None
     traceState: Annotated[
-        TraceState,
-        Field(
-            alias="traceState",
-            title="Trace State",
-        )
+        TraceState, Field(alias="traceState", title="Trace State")
     ] = None
-    flags: Annotated[
-        TraceFlags,
-        Field(
-            alias="flags",
-            title="Flags",
-        )
-    ] = None
+    flags: Annotated[TraceFlags, Field(alias="flags", title="Flags")] = None
 
 
 class IntakeResolvedSpan(BaseModel):
@@ -515,11 +457,7 @@ class IntakeResolvedSpan(BaseModel):
         ),
     ] = ...
     spanLinks: Annotated[
-        List[SpanLink],
-        Field(
-            alias="spanLinks",
-            title="Span Links",
-        )
+        List[SpanLink], Field(alias="spanLinks", title="Span Links")
     ] = None
 
 
@@ -539,7 +477,57 @@ class AgentPayload(BaseModel):
                 Hostname of where the agent is running."""
             ),
         ),
+    ] = None
+    env: Annotated[
+        NonEmptyString,
+        Field(
+            alias="env",
+            title="Env",
+            description="""Specifies the 'env' set in the agent's configuration.""",
+        ),
+    ] = None
+    tags: Annotated[
+        Dict[str, str],
+        Field(
+            alias="tags",
+            title="Tags",
+            description="""Tags specifies tags common in all `tracerPayloads`""",
+        ),
+    ] = None
+    agentVersion: Annotated[
+        NonEmptyString,
+        Field(
+            alias="agentVersion",
+            title="Agent Version",
+            description="""Specifies version of the agent""",
+        ),
     ] = ...
+    targetTPS: Annotated[
+        PositiveFloat,
+        Field(
+            alias="targetTPS",
+            title="Target TPS",
+            description="""Holds `TargetTPS` value in AgentConfig""",
+        ),
+    ] = ...
+    errorTPS: Annotated[
+        PositiveFloat,
+        Field(
+            alias="errorTPS",
+            title="Error TPS",
+            description="""Holds `ErrorTPS` value in AgentConfig""",
+        ),
+    ] = ...
+    rareSamplerEnabled: Annotated[
+        bool,
+        Field(
+            alias="rareSamplerEnabled",
+            title="Rare Sampler Flag",
+            description="""Holds `RareSamplerEnabled` value in AgentConfig""",
+        ),
+    ] = None
+
+    # TODO: tracerPayloads
 
 
 def generate_schema(*args, payload_type, version_info):
@@ -564,7 +552,7 @@ def generate_schema(*args, payload_type, version_info):
 
 def main():
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="Generate schema JSON file.")
     subparsers = parser.add_subparsers(dest='command')
 
