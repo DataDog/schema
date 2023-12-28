@@ -5,12 +5,11 @@ import logging
 import os
 import re
 import textwrap
-
 from typing import List, Dict
+from typing import NamedTuple
 
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated
-from typing import NamedTuple
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -43,7 +42,7 @@ Tags = Annotated[
     Field(
         description="""
         This field represents an arbitrary map of key-value pairs.""",
-        examples=[{"foo":"bar", "key":"value"}],
+        examples=[{"foo": "bar", "key": "value"}],
         json_schema_extra={"is_sensitive": False},
     ),
 ]
@@ -188,7 +187,7 @@ DbConnectionString = Annotated[
     str,
     Field(
         description="The connection string used to connect to the database.",
-        examples=["Server=(localdb)\v11.0;Integrated Security=true;","postgresql://localhost:5432"],
+        examples=["Server=(localdb)\v11.0;Integrated Security=true;", "postgresql://localhost:5432"],
         json_schema_extra={"is_sensitive": True},
     ),
 ]
@@ -241,9 +240,11 @@ DbSqlTable = Annotated[
 DbRowCount = Annotated[
     int,
     Field(
-        description=textwrap.dedent("""
+        description=textwrap.dedent(
+            """
                                     The number of rows/results from the query or operation. For caches and other datastores, i.e. Redis, this tag should only set for operations that retrieve stored data,
-                                    such as GET operations and queries, excluding SET and other commands not returning data. """),
+                                    such as GET operations and queries, excluding SET and other commands not returning data. """
+        ),
         examples=["customers"],
         ge=0,
         json_schema_extra={"is_sensitive": False},
@@ -389,65 +390,67 @@ class IntakeResolvedHttpSpan(BaseModel):
         ),
     ] = None
 
+
 class IntakeResolvedDbSpan(BaseModel):
     """
     Semantic model for the DB information present in a span during intake.
     """
+
     db_system: Annotated[
         DbSystem,
         Field(
             alias="db.system",
             title="DB System",
-        )
+        ),
     ] = ...
     db_connection_string: Annotated[
         DbConnectionString,
         Field(
             alias="db.connection_string",
             title="DB Connection String",
-        )
+        ),
     ] = None
     db_user: Annotated[
         DbUser,
         Field(
             alias="db.user",
             title="DB User",
-        )
+        ),
     ] = None
     db_name: Annotated[
         DbName,
         Field(
             alias="db.name",
             title="DB Name",
-        )
+        ),
     ] = None
     db_statement: Annotated[
         DbStatement,
         Field(
             alias="db.statement",
             title="DB Statement",
-        )
+        ),
     ] = None
     db_operation: Annotated[
         DbOperation,
         Field(
             alias="db.operation",
             title="DB Operation",
-        )
+        ),
     ] = None
     db_sql_table: Annotated[
         DbSqlTable,
         Field(
             alias="db.sql.table",
             title="DB SQL Table",
-        )
+        ),
     ] = None
     db_row_count: Annotated[
         DbRowCount,
         Field(
             alias="db.row_count",
             title="DB Row Count",
-        )
+        ),
     ] = None
 
 
@@ -457,42 +460,42 @@ class SpanLink(BaseModel):
         Field(
             alias="traceID",
             title="Trace ID",
-        )
+        ),
     ] = ...
     traceID_High: Annotated[
         TraceId,
         Field(
             alias="traceID_High",
             title="Trace ID High",
-        )
+        ),
     ] = None
     spanID: Annotated[
         SpanId,
         Field(
             alias="spanID",
             title="Span ID",
-        )
+        ),
     ] = None
     attributes: Annotated[
         Tags,
         Field(
             alias="attributes",
             title="attributes",
-        )
+        ),
     ] = None
     traceState: Annotated[
         TraceState,
         Field(
             alias="traceState",
             title="Trace State",
-        )
+        ),
     ] = None
     flags: Annotated[
         TraceFlags,
         Field(
             alias="flags",
             title="Flags",
-        )
+        ),
     ] = None
 
 
@@ -519,7 +522,7 @@ class IntakeResolvedSpan(BaseModel):
         Field(
             alias="spanLinks",
             title="Span Links",
-        )
+        ),
     ] = None
 
 
@@ -543,7 +546,6 @@ class AgentPayload(BaseModel):
 
 
 def generate_schema(*args, payload_type, version_info):
-
     json_schema_str = json.dumps(payload_type.model_json_schema(), indent=2)
     subdir = "releases" if version_info.is_release else "drafts"
 
@@ -551,9 +553,7 @@ def generate_schema(*args, payload_type, version_info):
     output_dir = version_info.path
     os.makedirs(output_dir, exist_ok=True)
 
-    snake_case_name = "".join(
-        ["_" + i.lower() if i.isupper() else i for i in payload_type.__name__]
-    ).lstrip("_")
+    snake_case_name = "".join(["_" + i.lower() if i.isupper() else i for i in payload_type.__name__]).lstrip("_")
 
     # Write the schema to the specified file
     # output_file = os.path.join(output_dir, "schema.json")
@@ -564,17 +564,24 @@ def generate_schema(*args, payload_type, version_info):
 
 def main():
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="Generate schema JSON file.")
-    subparsers = parser.add_subparsers(dest='command')
+    subparsers = parser.add_subparsers(dest="command")
 
     # Create the parser for the "generate" command
-    generate_parser = subparsers.add_parser('generate', help="Generate something")
+    generate_parser = subparsers.add_parser("generate", help="Generate something")
     generate_parser.add_argument("--release", action="store_true", help="Create a new release version")
-    generate_parser.add_argument('--release-type', choices=["major", "minor", "patch"], default="minor", nargs='?', const="minor", help="Create a new release version")
+    generate_parser.add_argument(
+        "--release-type",
+        choices=["major", "minor", "patch"],
+        default="minor",
+        nargs="?",
+        const="minor",
+        help="Create a new release version",
+    )
     args = parser.parse_args()
 
-    if args.command == 'generate':
+    if args.command == "generate":
         latest_version_info = find_latest_version()
         new_version_info = create_new_version(latest_version_info, args.release_type, args.release)
         logger.info(f"Latest version: {latest_version_info}")
@@ -599,6 +606,7 @@ class VersionInfo(NamedTuple):
     def __str__(self):
         return f"VERSION:{self.version} PATH:{self.path} ISRELEASE:{self.is_release}"
 
+
 def find_latest_version(path="./../schema/releases/", is_release=True):
     """
     Looks at all the files in the provided path. Files are of the format v{semantic_version}.
@@ -608,21 +616,21 @@ def find_latest_version(path="./../schema/releases/", is_release=True):
         - path: The path to the file.
     """
     # Ensure the path ends with a slash
-    if not path.endswith('/'):
-        path += '/'
+    if not path.endswith("/"):
+        path += "/"
 
     # Get all files in the directory
     files = os.listdir(path)
 
     # Find all files that match the format v{semantic_version}
-    version_files = [f for f in files if re.match('^v\d+\.\d+\.\d+$', f)]
+    version_files = [f for f in files if re.match("^v\d+\.\d+\.\d+$", f)]
 
     # If there are no matching files, return None
     if not version_files:
         return None
 
     # Sort the files by semantic version
-    version_files.sort(key=lambda x: [int(p) for p in x[1:].split('.')])
+    version_files.sort(key=lambda x: [int(p) for p in x[1:].split(".")])
 
     # The latest file is the last one in the sorted list
     latest_file = version_files[-1]
@@ -634,7 +642,9 @@ def find_latest_version(path="./../schema/releases/", is_release=True):
     return VersionInfo(version, full_path, is_release)
 
 
-def create_new_version(last_semantic_version: VersionInfo, semantic_version_type: str, is_release: bool) -> VersionInfo[str, str, bool]:
+def create_new_version(
+    last_semantic_version: VersionInfo, semantic_version_type: str, is_release: bool
+) -> VersionInfo[str, str, bool]:
     """
     Determine the next semantic version number by using the provided type (patch, minor, major), and the last semantic version.
 
@@ -647,23 +657,24 @@ def create_new_version(last_semantic_version: VersionInfo, semantic_version_type
         VersionInfo: A VersionInfo with the path to the new directory and the version.
     """
 
-    major, minor, patch = map(int, last_semantic_version.version.split('.'))
+    major, minor, patch = map(int, last_semantic_version.version.split("."))
 
-    if semantic_version_type == 'major':
+    if semantic_version_type == "major":
         major += 1
         minor = 0
         patch = 0
-    elif semantic_version_type == 'minor':
+    elif semantic_version_type == "minor":
         minor += 1
         patch = 0
-    elif semantic_version_type == 'patch':
+    elif semantic_version_type == "patch":
         patch += 1
 
     new_version = f"{major}.{minor}.{patch}"
     subdir = "releases" if is_release else "drafts"
-    new_path = os.path.join('..', 'schema', subdir, new_version)
+    new_path = os.path.join("..", "schema", subdir, new_version)
 
     return VersionInfo(new_version, new_path, is_release)
+
 
 if __name__ == "__main__":
     main()

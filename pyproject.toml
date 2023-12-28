@@ -1,0 +1,12 @@
+# If you get an error similar to:
+#   Error: Invalid value for "-t" / "--target-version": invalid choice: py310. (choose from py27, py33, py34, py35, py36, py37, py38)
+# Then you need to upgrade your version of black, which you can do by running: `pip install --upgrade black`
+[tool.black]
+line-length = 120 # default is 88 (we chose 120 for compatibility with flake8)
+target-version = ['py310']
+include = '\.pyi?$'
+force-exclude = '''
+/(
+  \.git
+)/
+'''
