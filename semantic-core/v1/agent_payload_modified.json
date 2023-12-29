@@ -53,7 +53,7 @@
         "traceID": {
           "description": "The ID of the trace to which this span belongs",
           "title": "Trace ID",
-          "type": "integer"
+          "type": "string"
         },
         "spanID": {
           "description": "The ID of this span",
