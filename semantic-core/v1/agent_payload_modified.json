@@ -64,17 +64,17 @@
           "default": null,
           "description": "The ID of this span's parent, or zero if this span has no parent",
           "title": "Parent ID",
-          "type": "integer"
+          "type": "string"
         },
         "start": {
           "description": "The number of nanoseconds between the Unix epoch and the beginning of this span",
           "title": "Start",
-          "type": "integer"
+          "type": "string"
         },
         "duration": {
           "description": "The time length of this span in nanoseconds",
           "title": "Duration",
-          "type": "integer"
+          "type": "string"
         },
         "error": {
           "default": null,
