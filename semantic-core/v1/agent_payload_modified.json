@@ -58,7 +58,7 @@
         "spanID": {
           "description": "The ID of this span",
           "title": "Span ID",
-          "type": "integer"
+          "type": "string"
         },
         "parentID": {
           "default": null,
