@@ -17,6 +17,10 @@ logger = logging.getLogger(__name__)
 
 # Semantic Types
 
+NonEmptyString = Annotated[str, Field(min_length=1)]
+PositiveFloat = Annotated[float, Field(gt=0)]
+
+
 TraceId = Annotated[
     int,
     Field(
@@ -250,6 +254,7 @@ DbRowCount = Annotated[
         json_schema_extra={"is_sensitive": False},
     ),
 ]
+
 
 # Semantic Models
 
@@ -542,7 +547,57 @@ class AgentPayload(BaseModel):
                 Hostname of where the agent is running."""
             ),
         ),
+    ] = None
+    env: Annotated[
+        NonEmptyString,
+        Field(
+            alias="env",
+            title="Env",
+            description="""Specifies the 'env' set in the agent's configuration.""",
+        ),
+    ] = None
+    tags: Annotated[
+        Dict[str, str],
+        Field(
+            alias="tags",
+            title="Tags",
+            description="""Tags specifies tags common in all `tracerPayloads`""",
+        ),
+    ] = None
+    agentVersion: Annotated[
+        NonEmptyString,
+        Field(
+            alias="agentVersion",
+            title="Agent Version",
+            description="""Specifies version of the agent""",
+        ),
     ] = ...
+    targetTPS: Annotated[
+        PositiveFloat,
+        Field(
+            alias="targetTPS",
+            title="Target TPS",
+            description="""Holds `TargetTPS` value in AgentConfig""",
+        ),
+    ] = ...
+    errorTPS: Annotated[
+        PositiveFloat,
+        Field(
+            alias="errorTPS",
+            title="Error TPS",
+            description="""Holds `ErrorTPS` value in AgentConfig""",
+        ),
+    ] = ...
+    rareSamplerEnabled: Annotated[
+        bool,
+        Field(
+            alias="rareSamplerEnabled",
+            title="Rare Sampler Flag",
+            description="""Holds `RareSamplerEnabled` value in AgentConfig""",
+        ),
+    ] = None
+
+    # TODO: tracerPayloads
 
 
 def generate_schema(*args, payload_type, version_info):
