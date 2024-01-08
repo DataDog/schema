@@ -268,7 +268,7 @@ class IntakeResolvedHttpSpan(BaseModel):
         HttpStatusCode,
         Field(
             title="HTTP Status Code",
-            alias="http.status_code",
+            alias="meta.http.status_code",
             description=textwrap.dedent(
                 """
                 The HTTP response status code.
@@ -281,7 +281,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_url: Annotated[
         HttpUrl,
         Field(
-            alias="http.url",
+            alias="meta.http.url",
             title="HTTP URL",
             description=textwrap.dedent(
                 """
@@ -292,7 +292,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_method: Annotated[
         HttpMethod,
         Field(
-            alias="http.method",
+            alias="meta.http.method",
             title="HTTP Method",
             description=textwrap.dedent(
                 """
@@ -303,7 +303,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_version: Annotated[
         HttpVersion,
         Field(
-            alias="http.version",
+            alias="meta.http.version",
             title="HTTP Version",
             description=textwrap.dedent(
                 """
@@ -314,7 +314,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_route: Annotated[
         HttpRoute,
         Field(
-            alias="http.route",
+            alias="meta.http.route",
             title="HTTP Route",
             description=textwrap.dedent(
                 """
@@ -326,7 +326,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_client_ip: Annotated[
         IpAddress,
         Field(
-            alias="http.client_ip",
+            alias="meta.http.client_ip",
             title="HTTP Client IP",
             description=textwrap.dedent(
                 """
@@ -337,7 +337,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_useragent: Annotated[
         HttpUserAgent,
         Field(
-            alias="http.useragent",
+            alias="meta.http.useragent",
             title="HTTP User Agent",
             description=textwrap.dedent(
                 """
@@ -349,7 +349,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_request_content_length: Annotated[
         HttpContentLength,
         Field(
-            alias="http.request.content_length",
+            alias="metrics.http.request.content_length_bytes",
             title="HTTP Request Content Length",
             description=textwrap.dedent(
                 """
@@ -362,7 +362,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_response_content_length: Annotated[
         HttpContentLength,
         Field(
-            alias="http.response.content_length",
+            alias="metrics.http.response.content_length_bytes",
             title="HTTP Response Content Length",
             description=textwrap.dedent(
                 """
@@ -375,7 +375,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_request_content_length_uncompressed: Annotated[
         HttpContentLength,
         Field(
-            alias="http.request.content_length_uncompressed",
+            alias="metrics.http.request.content_length_uncompressed",
             title="HTTP Request Content Length Uncompressed",
             description=textwrap.dedent(
                 """
@@ -386,7 +386,7 @@ class IntakeResolvedHttpSpan(BaseModel):
     http_response_content_length_uncompressed: Annotated[
         HttpContentLength,
         Field(
-            alias="http.response.content_length_uncompressed",
+            alias="metrics.http.response.content_length_uncompressed",
             title="HTTP Response Content Length Uncompressed",
             description=textwrap.dedent(
                 """
@@ -404,21 +404,21 @@ class IntakeResolvedDbSpan(BaseModel):
     db_system: Annotated[
         DbSystem,
         Field(
-            alias="db.system",
+            alias="meta.db.system",
             title="DB System",
         ),
     ] = ...
     db_connection_string: Annotated[
         DbConnectionString,
         Field(
-            alias="db.connection_string",
+            alias="meta.db.connection_string",
             title="DB Connection String",
         ),
     ] = None
     db_user: Annotated[
         DbUser,
         Field(
-            alias="db.user",
+            alias="meta.db.user",
             title="DB User",
         ),
     ] = None
@@ -432,28 +432,28 @@ class IntakeResolvedDbSpan(BaseModel):
     db_statement: Annotated[
         DbStatement,
         Field(
-            alias="db.statement",
+            alias="meta.db.statement",
             title="DB Statement",
         ),
     ] = None
     db_operation: Annotated[
         DbOperation,
         Field(
-            alias="db.operation",
+            alias="meta.db.operation",
             title="DB Operation",
         ),
     ] = None
     db_sql_table: Annotated[
         DbSqlTable,
         Field(
-            alias="db.sql.table",
+            alias="meta.db.sql.table",
             title="DB SQL Table",
         ),
     ] = None
     db_row_count: Annotated[
         DbRowCount,
         Field(
-            alias="db.row_count",
+            alias="metrics.db.row_count",
             title="DB Row Count",
         ),
     ] = None
