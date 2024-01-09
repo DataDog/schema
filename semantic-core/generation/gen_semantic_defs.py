@@ -6,10 +6,10 @@ import os
 import re
 from typing import NamedTuple
 
-from semantics.intake_resolved_http_span import IntakeResolvedHttpSpan
-from semantics.intake_resolved_db_span import IntakeResolvedDbSpan
-from semantics.intake_resolved_span import IntakeResolvedSpan
-from semantics.agent_payload import AgentPayload
+from semantic_core.payloads import IntakeResolvedHttpSpan
+from semantic_core.payloads import IntakeResolvedDbSpan
+from semantic_core.payloads import IntakeResolvedSpan
+from semantic_core.payloads import AgentPayload
 
 
 logging.basicConfig(level=logging.INFO)

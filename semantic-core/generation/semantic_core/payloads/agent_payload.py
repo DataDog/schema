@@ -3,7 +3,7 @@ import textwrap
 from typing_extensions import Annotated
 from typing import List, Dict
 
-from semantics.hostname import Hostname
+from semantic_core.registry.types import Hostname
 
 
 NonEmptyString = Annotated[str, Field(min_length=1)]
@@ -12,7 +12,7 @@ PositiveFloat = Annotated[float, Field(gt=0)]
 
 class AgentPayload(BaseModel):
     """
-    Represents the generic semantics for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto
+    Represents the generic semantic_core for the agent payload, structurally defined here: https://github.com/DataDog/datadog-agent/blob/main/pkg/proto/datadog/trace/agent_payload.proto
     """
 
     hostName: Annotated[
