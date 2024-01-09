@@ -161,3 +161,4 @@ cython_debug/
 
 # Custom semantic core generated files
 # schema.json
+schema/drafts
