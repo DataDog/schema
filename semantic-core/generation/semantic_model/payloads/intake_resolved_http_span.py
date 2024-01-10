@@ -2,14 +2,14 @@ import textwrap
 from typing import Annotated
 from pydantic import Field, BaseModel
 
-from semantic_core.registry.types import HttpStatusCode
-from semantic_core.registry.types import HttpUrl
-from semantic_core.registry.types import HttpMethod
-from semantic_core.registry.types import HttpVersion
-from semantic_core.registry.types import HttpRoute
-from semantic_core.registry.types import IpAddress
-from semantic_core.registry.types import HttpUserAgent
-from semantic_core.registry.types import HttpContentLength
+from semantic_model.registry.types import HttpStatusCode
+from semantic_model.registry.types import HttpUrl
+from semantic_model.registry.types import HttpMethod
+from semantic_model.registry.types import HttpVersion
+from semantic_model.registry.types import HttpRoute
+from semantic_model.registry.types import IpAddress
+from semantic_model.registry.types import HttpUserAgent
+from semantic_model.registry.types import HttpContentLength
 
 
 class IntakeResolvedHttpSpan(BaseModel):

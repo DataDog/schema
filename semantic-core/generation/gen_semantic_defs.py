@@ -6,12 +6,12 @@ import os
 import re
 from typing import NamedTuple
 
-from semantic_core.payloads import IntakeResolvedHttpSpan
-from semantic_core.payloads import IntakeResolvedDbSpan
-from semantic_core.payloads import IntakeResolvedSpan
-from semantic_core.payloads import AgentPayload
+from semantic_model.payloads import IntakeResolvedHttpSpan
+from semantic_model.payloads import IntakeResolvedDbSpan
+from semantic_model.payloads import IntakeResolvedSpan
+from semantic_model.payloads import AgentPayload
 
-from semantic_core.registry import PropertiesRegistry
+from semantic_model.registry import PropertiesRegistry
 
 
 logging.basicConfig(level=logging.INFO)
