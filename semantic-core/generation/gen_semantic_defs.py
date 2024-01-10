@@ -11,6 +11,8 @@ from semantic_core.payloads import IntakeResolvedDbSpan
 from semantic_core.payloads import IntakeResolvedSpan
 from semantic_core.payloads import AgentPayload
 
+from semantic_core.registry import PropertiesRegistry
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -27,7 +29,6 @@ def generate_schema(*args, payload_type, version_info):
     snake_case_name = "".join(["_" + i.lower() if i.isupper() else i for i in payload_type.__name__]).lstrip("_")
 
     # Write the schema to the specified file
-    # output_file = os.path.join(output_dir, "schema.json")
     output_file = os.path.join(output_dir, f"{snake_case_name}.json")
     with open(output_file, "w") as f:
         f.write(json_schema_str)
@@ -59,7 +60,13 @@ def main():
         logger.info(f"New version: {new_version_info}")
 
         try:
-            payload_types = [IntakeResolvedSpan, IntakeResolvedHttpSpan, IntakeResolvedDbSpan, AgentPayload]
+            payload_types = [
+                IntakeResolvedSpan,
+                IntakeResolvedHttpSpan,
+                IntakeResolvedDbSpan,
+                AgentPayload,
+                PropertiesRegistry,
+            ]
 
             for pt in payload_types:
                 generate_schema(payload_type=pt, version_info=new_version_info)

@@ -4,5 +4,4 @@ from .intake_resolved_http_span import IntakeResolvedHttpSpan
 from .intake_resolved_span import IntakeResolvedSpan
 
 
-
 __slots__ = ["AgentPayload", "IntakeResolvedDbSpan", "IntakeResolvedHttpSpan", "IntakeResolvedSpan"]
