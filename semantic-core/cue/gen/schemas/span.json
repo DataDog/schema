@@ -1,0 +1,476 @@
+{
+    "title": "Span",
+    "description": "Span",
+    "type": "object",
+    "properties": {
+        "service": {
+            "description": "The name of the service with which this span is associated",
+            "title": "Service",
+            "type": "string"
+        },
+        "name": {
+            "description": "The operation name of this span",
+            "title": "Name",
+            "type": "string"
+        },
+        "resource": {
+            "description": "The resource name of this span, also sometimes called the endpoint (for web spans)",
+            "title": "Resource",
+            "type": "string"
+        },
+        "traceID": {
+            "description": "The ID of the trace to which this span belongs",
+            "title": "Trace ID",
+            "type": "string"
+        },
+        "spanID": {
+            "description": "The ID of this span",
+            "title": "Span ID",
+            "type": "string"
+        },
+        "parentID": {
+            "default": null,
+            "description": "The ID of this span's parent, or zero if this span has no parent",
+            "title": "Parent ID",
+            "type": "string"
+        },
+        "start": {
+            "description": "The number of nanoseconds between the Unix epoch and the beginning of this span",
+            "title": "Start",
+            "type": "string"
+        },
+        "duration": {
+            "description": "The time length of this span in nanoseconds",
+            "title": "Duration",
+            "type": "string"
+        },
+        "error": {
+            "default": null,
+            "description": "Error is 1 if there is an error associated with this span, or 0 if there is not",
+            "title": "Error",
+            "type": "integer"
+        },
+        "meta": {
+            "additionalProperties": {
+                "type": "string"
+            },
+            "default": null,
+            "description": "Meta is a mapping from tag name to tag value for string-valued tags",
+            "title": "Meta",
+            "type": "object"
+        },
+        "metrics": {
+            "additionalProperties": {
+                "type": "number"
+            },
+            "default": null,
+            "description": "Metrics is a mapping from tag name to tag value for numeric-valued tags",
+            "title": "Metrics",
+            "type": "object"
+        },
+        "type": {
+            "default": null,
+            "description": "Represents the type of the service with which this span is associated. Example values: `web`, `db`, `lambda`",
+            "title": "Type",
+            "type": "string"
+        },
+        "meta_struct": {
+            "additionalProperties": {
+                "type": "integer"
+            },
+            "default": null,
+            "description": "Represents a registry of structured \"other\" data used by, e.g., AppSec",
+            "title": "Meta Struct",
+            "type": "object"
+        }
+    },
+    "required": [
+        "service",
+        "name",
+        "resource",
+        "traceID",
+        "spanID",
+        "start",
+        "duration"
+    ],
+    "allOf": [
+        {
+            "if": {
+                "not": {
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                "web",
+                                "db"
+                            ]
+                        }
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "meta": {
+                        "$ref": "#/$defs/BaseTags"
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "web"
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
+            "then": {
+                "properties": {
+                    "meta": {
+                        "$ref": "#/$defs/HTTPTags"
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "db"
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
+            "then": {
+                "properties": {
+                    "meta": {
+                        "$ref": "#/$defs/DBTags"
+                    }
+                }
+            }
+        }
+    ],
+    "$defs": {
+        "BaseTags": {
+            "title": "Base Tags",
+            "description": "Base Tags",
+            "properties": {
+                "_dd.hostname": {
+                    "title": "Hostname",
+                    "description": "Hostname of where the agent is running.",
+                    "type": "string",
+                    "default": null,
+                    "examples": [
+                        "my-hostname"
+                    ],
+                    "minLength": 0,
+                    "is_sensitive": false
+                },
+                "span.kind": {
+                    "title": "Span Kind",
+                    "description": "Span Kind",
+                    "type": "string",
+                    "enum": [
+                        "client",
+                        "server",
+                        "producer",
+                        "consumer",
+                        "internal"
+                    ],
+                    "is_sensitive": false
+                }
+            },
+            "required": [
+                "span.kind"
+            ]
+        },
+        "HTTPTags": {
+            "title": "HTTP Meta Tags",
+            "description": "HTTP Meta Tags",
+            "properties": {
+                "_dd.hostname": {
+                    "title": "Hostname",
+                    "description": "Hostname of where the agent is running.",
+                    "type": "string",
+                    "default": null,
+                    "examples": [
+                        "my-hostname"
+                    ],
+                    "minLength": 0,
+                    "is_sensitive": false
+                },
+                "http.status_code": {
+                    "description": "\nThe HTTP response status code.\nWhen span.kind: client the response status code received.\nWhen span.kind: server the response status code sent.\nNote: Although this is an integer, it must be sent as a string.",
+                    "examples": [
+                        "200",
+                        "404",
+                        "500"
+                    ],
+                    "pattern": "^[12345]\\d\\d$",
+                    "title": "HTTP Status Code",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "http.url": {
+                    "description": "\nThe URL of the HTTP request, including the obfuscated query string.",
+                    "examples": [
+                        "https://example.com:443/search?q=datadog"
+                    ],
+                    "is_sensitive": true,
+                    "minLength": 1,
+                    "title": "HTTP URL",
+                    "type": "string"
+                },
+                "http.method": {
+                    "description": "\nThe HTTP method used for the connection. Required for both client and server spans.",
+                    "examples": [
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE",
+                        "PATCH"
+                    ],
+                    "pattern": "^(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH)$",
+                    "title": "HTTP Method",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "http.version": {
+                    "description": "\nThe version of HTTP used for the request.",
+                    "examples": [
+                        "1.0",
+                        "1.1",
+                        "2.0"
+                    ],
+                    "pattern": "^1\\.[01]$|^2\\.0$",
+                    "title": "HTTP Version",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "http.route": {
+                    "default": null,
+                    "description": "\nThe matched route (path template).\nOnly when span.kind: server.",
+                    "examples": [
+                        "/users/:userID"
+                    ],
+                    "minLength": 1,
+                    "title": "HTTP Route",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "http.client_ip": {
+                    "default": null,
+                    "description": "\nThe IP address of the original client behind all proxies, if known (discovered from headers such as X-Forwarded-For).",
+                    "examples": [
+                        "192.168.123.132"
+                    ],
+                    "is_sensitive": true,
+                    "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}|(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$",
+                    "title": "HTTP Client IP",
+                    "type": "string"
+                },
+                "http.useragent": {
+                    "default": null,
+                    "description": "\nThe user agent header received with the request.\nOnly when span.kind: server.",
+                    "examples": [
+                        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+                    ],
+                    "is_sensitive": true,
+                    "minLength": 1,
+                    "title": "HTTP User Agent",
+                    "type": "string"
+                },
+                "http.request.content_length": {
+                    "default": null,
+                    "description": "\nThe size of the request body.\nThe size of the request payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the Content-Length header.\nFor requests using transport encoding, this should be compressed size.",
+                    "examples": [
+                        1234
+                    ],
+                    "exclusiveMinimum": 0,
+                    "is_sensitive": true,
+                    "title": "HTTP Request Content Length",
+                    "type": "integer"
+                },
+                "http.response.content_length": {
+                    "default": null,
+                    "description": "\nThe size of the response payload body in bytes.\nThe size of the response payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the Content-Length header.\nFor requests using transport encoding, this should be compressed size.",
+                    "examples": [
+                        1234
+                    ],
+                    "exclusiveMinimum": 0,
+                    "is_sensitive": true,
+                    "title": "HTTP Response Content Length",
+                    "type": "integer"
+                },
+                "http.request.content_length_uncompressed": {
+                    "default": null,
+                    "description": "\nThe size of the request payload body after transport decoding. Not set if transport encoding not used.",
+                    "examples": [
+                        1234
+                    ],
+                    "exclusiveMinimum": 0,
+                    "is_sensitive": true,
+                    "title": "HTTP Request Content Length Uncompressed",
+                    "type": "integer"
+                },
+                "span.kind": {
+                    "title": "Span Kind",
+                    "description": "Span Kind",
+                    "type": "string",
+                    "enum": [
+                        "client",
+                        "server",
+                        "producer",
+                        "consumer",
+                        "internal"
+                    ],
+                    "is_sensitive": false
+                },
+                "http.response.content_length_uncompressed": {
+                    "default": null,
+                    "description": "\nThe size of the response payload body after transport decoding. Not set if transport encoding not used.",
+                    "examples": [
+                        1234
+                    ],
+                    "exclusiveMinimum": 0,
+                    "is_sensitive": true,
+                    "title": "HTTP Response Content Length Uncompressed",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "span.kind",
+                "http.status_code",
+                "http.url",
+                "http.method"
+            ]
+        },
+        "DBTags": {
+            "title": "HTTP DB Tags",
+            "description": "HTTP DB Tags",
+            "properties": {
+                "_dd.hostname": {
+                    "title": "Hostname",
+                    "description": "Hostname of where the agent is running.",
+                    "type": "string",
+                    "default": null,
+                    "examples": [
+                        "my-hostname"
+                    ],
+                    "minLength": 0,
+                    "is_sensitive": false
+                },
+                "db.system": {
+                    "description": "An identifier for the database management system (DBMS) product being used.",
+                    "examples": [
+                        "mysql",
+                        "postgresql"
+                    ],
+                    "type": "string",
+                    "enum": [
+                        "adabas",
+                        "buntdb",
+                        "cache"
+                    ],
+                    "title": "DB System",
+                    "is_sensitive": false
+                },
+                "db.connection_string": {
+                    "default": null,
+                    "description": "The connection string used to connect to the database.",
+                    "examples": [
+                        "Server=(localdb)\u000b11.0;Integrated Security=true;",
+                        "postgresql://localhost:5432"
+                    ],
+                    "is_sensitive": true,
+                    "title": "DB Connection String",
+                    "type": "string"
+                },
+                "db.user": {
+                    "default": null,
+                    "description": "Username for accessing the database.",
+                    "examples": [
+                        "widget_user"
+                    ],
+                    "title": "DB User",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "db.name": {
+                    "default": null,
+                    "description": "The name of the database being connected to.",
+                    "examples": [
+                        "customers"
+                    ],
+                    "title": "DB Name",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "db.statement": {
+                    "default": null,
+                    "description": "The database statement being executed.",
+                    "examples": [
+                        "SELECT * FROM wuser_table', 'SET mykey \"WuValue"
+                    ],
+                    "is_sensitive": true,
+                    "title": "DB Statement",
+                    "type": "string"
+                },
+                "db.operation": {
+                    "default": null,
+                    "description": "The name of the operation being executed, e.g. the MongoDB command name such as findAndModify, or the SQL keyword.",
+                    "examples": [
+                        "findAndModify",
+                        "HMSET",
+                        "SELECT"
+                    ],
+                    "title": "DB Operation",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "db.sql.table": {
+                    "default": null,
+                    "description": "The name of the primary table that the operation is acting upon, including the database name (if applicable).",
+                    "examples": [
+                        "customers"
+                    ],
+                    "title": "DB SQL Table",
+                    "type": "string",
+                    "is_sensitive": false
+                },
+                "span.kind": {
+                    "title": "Span Kind",
+                    "description": "Span Kind",
+                    "type": "string",
+                    "enum": [
+                        "client",
+                        "server",
+                        "producer",
+                        "consumer",
+                        "internal"
+                    ],
+                    "is_sensitive": false
+                },
+                "db.row_count": {
+                    "default": null,
+                    "description": "\nThe number of rows/results from the query or operation. For caches and other datastores, i.e. Redis, this tag should only set for operations that retrieve stored data,\nsuch as GET operations and queries, excluding SET and other commands not returning data. ",
+                    "examples": [
+                        "customers"
+                    ],
+                    "minimum": 0,
+                    "title": "DB Row Count",
+                    "type": "integer",
+                    "is_sensitive": false
+                }
+            },
+            "required": [
+                "span.kind",
+                "db.system"
+            ]
+        }
+    }
+}
