@@ -2,14 +2,14 @@ import textwrap
 from typing import Annotated
 from pydantic import Field, BaseModel
 
-from semantic_core.registry.types import DbSystem
-from semantic_core.registry.types import DbUser
-from semantic_core.registry.types import DbName
-from semantic_core.registry.types import DbStatement
-from semantic_core.registry.types import DbOperation
-from semantic_core.registry.types import DbSqlTable
-from semantic_core.registry.types import DbRowCount
-from semantic_core.registry.types import DbConnectionString
+from semantic_model.registry.types import DbSystem
+from semantic_model.registry.types import DbUser
+from semantic_model.registry.types import DbName
+from semantic_model.registry.types import DbStatement
+from semantic_model.registry.types import DbOperation
+from semantic_model.registry.types import DbSqlTable
+from semantic_model.registry.types import DbRowCount
+from semantic_model.registry.types import DbConnectionString
 
 
 class IntakeResolvedDbSpan(BaseModel):

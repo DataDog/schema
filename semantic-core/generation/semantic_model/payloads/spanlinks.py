@@ -2,7 +2,7 @@ from typing_extensions import Annotated
 from typing import List, Dict
 from pydantic import BaseModel, Field
 
-from semantic_core.registry.types import TraceId, SpanId, Tags, TraceState, TraceFlags
+from semantic_model.registry.types import TraceId, SpanId, Tags, TraceState, TraceFlags
 
 
 class SpanLink(BaseModel):

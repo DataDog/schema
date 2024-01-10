@@ -4,8 +4,8 @@ from typing_extensions import Annotated
 
 from pydantic import BaseModel, Field
 
-from semantic_core.registry.types import Hostname
-from semantic_core.payloads.spanlinks import SpanLink
+from semantic_model.registry.types import Hostname
+from semantic_model.payloads.spanlinks import SpanLink
 
 
 class IntakeResolvedSpan(BaseModel):
