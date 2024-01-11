@@ -6,13 +6,12 @@ import os
 import re
 from typing import NamedTuple
 
-from semantic_model.payloads import IntakeResolvedHttpSpan
-from semantic_model.payloads import IntakeResolvedDbSpan
-from semantic_model.payloads import IntakeResolvedSpan
 from semantic_model.payloads import AgentPayload
-
+from semantic_model.payloads import IntakeResolvedDbSpan
+from semantic_model.payloads import IntakeResolvedHttpSpan
+from semantic_model.payloads import IntakeResolvedSpan
+from semantic_model.registry import OwnersRegistry
 from semantic_model.registry import PropertiesRegistry
-
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -59,16 +58,19 @@ def main():
         logger.info(f"Latest version: {latest_version_info}")
         logger.info(f"New version: {new_version_info}")
 
+        # TODO: [fpaulo] clean this up to clearly separate nodes from registries
+
         try:
-            payload_types = [
+            json_schema_types = [
                 IntakeResolvedSpan,
                 IntakeResolvedHttpSpan,
                 IntakeResolvedDbSpan,
                 AgentPayload,
                 PropertiesRegistry,
+                OwnersRegistry,
             ]
 
-            for pt in payload_types:
+            for pt in json_schema_types:
                 generate_schema(payload_type=pt, version_info=new_version_info)
 
             logger.info(f"Schema successfully generated for version: {new_version_info}")
