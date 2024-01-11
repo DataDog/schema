@@ -10,6 +10,7 @@ from semantic_model.payloads import AgentPayload
 from semantic_model.payloads import IntakeResolvedDbSpan
 from semantic_model.payloads import IntakeResolvedHttpSpan
 from semantic_model.payloads import IntakeResolvedSpan
+from semantic_model.registry import AspectsRegistry
 from semantic_model.registry import OwnersRegistry
 from semantic_model.registry import PropertiesRegistry
 
@@ -68,6 +69,7 @@ def main():
                 AgentPayload,
                 PropertiesRegistry,
                 OwnersRegistry,
+                AspectsRegistry,
             ]
 
             for pt in json_schema_types:
