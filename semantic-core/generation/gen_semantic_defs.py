@@ -10,8 +10,10 @@ from semantic_model.payloads import AgentPayload
 from semantic_model.payloads import IntakeResolvedDbSpan
 from semantic_model.payloads import IntakeResolvedHttpSpan
 from semantic_model.payloads import IntakeResolvedSpan
+from semantic_model.registry import AspectsRegistry
 from semantic_model.registry import OwnersRegistry
 from semantic_model.registry import PropertiesRegistry
+from semantic_model.registry import SignalsRegistry
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -68,6 +70,8 @@ def main():
                 AgentPayload,
                 PropertiesRegistry,
                 OwnersRegistry,
+                AspectsRegistry,
+                SignalsRegistry,
             ]
 
             for pt in json_schema_types:
