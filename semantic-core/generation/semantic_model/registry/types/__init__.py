@@ -22,4 +22,3 @@ from .trace_id import TraceId
 from .trace_flags import TraceFlags
 from .trace_state import TraceState
 from .tags import Tags
-

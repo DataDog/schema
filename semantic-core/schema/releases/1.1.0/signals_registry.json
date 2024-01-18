@@ -1,0 +1,16 @@
+{
+  "description": "Represents the registry of all signals that can be used to define complex validations.",
+  "properties": {
+    "remove_query_string": {
+      "description": "True if the agent that sent a payload containing an http url is configured to remove the query string from the url before sending it to the backend.\nSee: https://docs.datadoghq.com/tracing/configure_data_security/?tab=http\n",
+      "title": "Remove Query String",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "remove_query_string"
+  ],
+  "title": "SignalsRegistry",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
