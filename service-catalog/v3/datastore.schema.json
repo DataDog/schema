@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datastore.schema.json",
+  "description": "Schema for datastore entities",
+  "examples": [],
+  "allOf": [
+    {
+      "$ref": "DataDog/schema/main/service-catalog/v3/entity.schema.json#"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": ["v3"]
+        },
+        "kind": {
+          "enum": ["datastore"]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lifecycle": {
+              "type": "string",
+              "description": "The lifecycle state of the datastore.",
+              "examples": [
+                "experimental",
+                "production",
+                "deprecated"
+              ],
+              "minLength": 1
+            },
+            "tier": {
+              "type": "string",
+              "description": "The importance of the datastore",
+              "examples": ["1", "High"],
+              "minLength": 1
+            },
+            "type": {
+              "description": "The type of datastore",
+              "examples": ["redis", "postgres", "cassandra"],
+              "type": "string"
+            }
+          }
+        },
+        "integrations": {
+          "$ref": "DataDog/schema/main/service-catalog/v3/integration.schema.json#"
+        },
+        "datadog": {
+          "type": "object",
+          "description": "Datadog product integrations for the datastore entity",
+          "additionalProperties": false,
+          "properties": {
+            "performanceData": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json#"},
+            "events": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_events.schema.json#"},
+            "logs": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json#"}
+          }
+        }
+      }
+    }
+  ]
+}

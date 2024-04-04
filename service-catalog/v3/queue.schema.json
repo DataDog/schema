@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/queue.schema.json",
+  "description": "Schema for queue entities",
+  "examples": [],
+  "allOf": [
+    {
+      "$ref": "DataDog/schema/main/service-catalog/v3/entity.schema.json#"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": ["v3"]
+        },
+        "kind": {
+          "enum": ["queue"]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lifecycle": {
+              "type": "string",
+              "description": "The lifecycle state of the queue.",
+              "examples": [
+                "experimental",
+                "production",
+                "deprecated"
+              ],
+              "minLength": 1
+            },
+            "tier": {
+              "type": "string",
+              "description": "The importance of the queue",
+              "examples": ["1", "High"],
+              "minLength": 1
+            },
+            "type": {
+              "description": "The type of queue",
+              "examples": ["kafka", "rabbitmq"],
+              "type": "string"
+            }
+          }
+        },
+        "integrations": {
+          "$ref": "DataDog/schema/main/service-catalog/v3/integration.schema.json#"
+        },
+        "datadog": {
+          "type": "object",
+          "description": "Datadog product integrations for the datastore entity",
+          "additionalProperties": false,
+          "properties": {
+            "performanceData": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json#"},
+            "events": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_events.schema.json#"},
+            "logs": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json#"}
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/opsgenie.schema.json",
+  "type": "object",
+  "description": "An Opsgenie integration schema",
+  "required": ["serviceURL"],
+  "additionalProperties": false,
+  "properties": {
+    "serviceURL": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The service url for the Opsgenie integration."
+    },
+    "region": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The region for the Opsgenie integration."
+    }
+  }
+}

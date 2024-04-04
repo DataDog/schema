@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/application.schema.json",
+  "description": "Schema for application entities",
+  "allOf": [
+    {
+      "$ref": "DataDog/schema/main/service-catalog/v3/entity.schema.json#"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": ["v3"]
+        },
+        "kind": {
+          "enum": ["application"]
+        },
+        "spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lifecycle": {
+              "type": "string",
+              "description": "The lifecycle state of the component.",
+              "examples": [
+                "experimental",
+                "production",
+                "deprecated"
+              ],
+              "minLength": 1
+            },
+            "tier": {
+              "type": "string",
+              "description": "An entity reference to the owner of the component.",
+              "examples": [
+                "artist-relations-team",
+                "user:john.johnson"
+              ],
+              "minLength": 1
+            },
+            "components": {
+              "description": "A list of components belongs to the application.",
+              "examples": [
+                "service:myapp",
+                "queue:myqueue",
+                "datastore:mydatastore",
+                "library:mylibrary"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "integrations": {
+          "$ref": "DataDog/schema/main/service-catalog/v3/integration.schema.json#"
+        },
+        "datadog": {
+          "type": "object",
+          "description": "Datadog product integrations for the service entity",
+          "additionalProperties": false,
+          "properties": {
+            "performanceData": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json#"},
+            "pipelines": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json#"},
+            "events": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_events.schema.json#"},
+            "logs": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json#"}
+          }
+        }
+      }
+    }
+  ]
+}
