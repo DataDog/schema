@@ -1,3 +1,6 @@
+# Schema (v3) - Beta
+ An [Entity Catalog](https://docs.datadoghq.com/service_catalog/add_metadata#metadata-schema-v30-beta) is a powerful way to capture and manage the complex web of relationships between all the components of an organization's infrastructure and softwares, beyond services. 
+
 # Schema (v2.2)
 Service Definition Schema is a JSON Schema that can be used to define metadata about a service in Datadog's Service Catalog. The latest schema version is v2.2. The schema is often used to: 
 * Communicate a set of accepted metadata fields for a service

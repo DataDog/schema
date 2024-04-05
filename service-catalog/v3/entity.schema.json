@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/entity.schema.json",
+  "description": "The base shape of a Datadog software entity",
+  "examples": [],
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "description": "The schema version of entity type. The field is known as schema-version in the previous version",
+      "enum": ["v3"],
+      "examples": ["v3"]
+    },
+    "kind": {
+      "type": "string",
+      "description": "Kind describes the type of entity",
+      "minLength": 1,
+      "examples": [
+        "application",
+        "service"
+      ]
+    },
+    "metadata": {
+      "$ref": "DataDog/schema/main/service-catalog/v3/metadata.schema.json#"
+    },
+    "spec": {
+      "type": "object",
+      "description": "The spec of the entity."
+    },
+    "integrations": {
+      "type": "object",
+      "description": "The external integrations of the entity."
+    },
+    "datadog": {
+      "type": "object",
+      "description": "The Datadog product associations for the entity."
+    },
+    "extensions": {
+      "description": "Custom extensions. This is the free-formed field to send client side metadata. No Datadog features are affected by this field.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/service.schema.json",
+  "description": "Schema for service entities",
+  "examples": [],
+  "allOf": [
+    {
+      "$ref": "DataDog/schema/main/service-catalog/v3/entity.schema.json#"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": ["v3"]
+        },
+        "kind": {
+          "enum": ["service"]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lifecycle": {
+              "type": "string",
+              "description": "The lifecycle state of the component.",
+              "examples": [
+                "experimental",
+                "production",
+                "deprecated"
+              ],
+              "minLength": 1
+            },
+            "tier": {
+              "type": "string",
+              "description": "The importance of the component",
+              "examples": ["1", "High"],
+              "minLength": 1
+            },
+            "type": {
+              "description": "The type of service",
+              "examples": ["web", "grpc", "http", "rest", "graphql"],
+              "type": "string"
+            },
+            "languages": {
+              "description": "The service's programming language. See examples for a list of recognizable languages",
+              "examples": [["dotnet", "go", "java", "js", "php", "python", "ruby", "c++"]],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dependsOn": {
+              "description": "A list of components the service depends on",
+              "examples": [
+                "service:myapp",
+                "queue:myqueue",
+                "datastore:mydatastore",
+                "library:mylibrary"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "integrations": {
+          "$ref": "DataDog/schema/main/service-catalog/v3/integration.schema.json#"
+        },
+        "datadog": {
+          "type": "object",
+          "description": "Datadog product integrations for the service entity",
+          "additionalProperties": false,
+          "properties": {
+            "performanceData": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json#"},
+            "pipelines": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json#"},
+            "events": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_events.schema.json#"},
+            "logs": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json#"},
+            "code": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_code.schema.json#"}
+          }
+        }
+      }
+    }
+  ]
+}

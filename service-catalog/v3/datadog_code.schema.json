@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_code.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "paths": {
+      "type": "array",
+      "description": "The paths (glob) to the source code of the service",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
