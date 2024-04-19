@@ -23,7 +23,7 @@
       ]
     },
     "metadata": {
-      "$ref": "DataDog/schema/main/service-catalog/v3/metadata.schema.json#"
+      "$ref": "metadata.schema.json"
     },
     "spec": {
       "type": "object",

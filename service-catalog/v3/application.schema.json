@@ -4,7 +4,7 @@
   "description": "Schema for application entities",
   "allOf": [
     {
-      "$ref": "DataDog/schema/main/service-catalog/v3/entity.schema.json#"
+      "$ref": "entity.schema.json#"
     },
     {
       "type": "object",
@@ -61,17 +61,17 @@
           "type": "object"
         },
         "integrations": {
-          "$ref": "DataDog/schema/main/service-catalog/v3/integration.schema.json#"
+          "$ref": "integration.schema.json#"
         },
         "datadog": {
           "type": "object",
           "description": "Datadog product integrations for the service entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json#"},
-            "pipelines": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json#"},
-            "events": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_events.schema.json#"},
-            "logs": {"$ref": "DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json#"}
+            "performanceData": {"$ref": "datadog_performance.schema.json#"},
+            "pipelines": {"$ref": "datadog_pipelines.schema.json#"},
+            "events": {"$ref": "datadog_events.schema.json#"},
+            "logs": {"$ref": "datadog_logs.schema.json#"}
           }
         }
       }

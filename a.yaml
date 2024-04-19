@@ -1,0 +1,5 @@
+apiVersion: v3
+kind: service
+metadata:
+  name: aaa
+
