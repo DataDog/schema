@@ -58,13 +58,6 @@
       "examples": ["myService"],
       "minLength": 1
     },
-    "namespace": {
-      "type": "string",
-      "description": "The namespace where the entity is under",
-      "default": "default",
-      "examples": ["default"],
-      "minLength": 1
-    },
     "description": {
       "type": "string",
       "description": "Short description of the entity. The UI can leverage the description for display"
