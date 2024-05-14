@@ -1,0 +1,18 @@
+{
+  "description": "Represents the registry of all Semantic Aspects, i.e. the groups of properties that are related to each other and\nare curated by one owner.",
+  "properties": {
+    "infosec": {
+      "description": "This aspect relates to infosec concerns",
+      "id": "infosec",
+      "owner": "trust_and_safety",
+      "title": "Infosec",
+      "type": "string"
+    }
+  },
+  "required": [
+    "infosec"
+  ],
+  "title": "AspectsRegistry",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

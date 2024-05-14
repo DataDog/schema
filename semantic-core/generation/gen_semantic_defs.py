@@ -5,6 +5,7 @@ import logging
 import os
 import re
 from typing import NamedTuple
+from pydantic.json_schema import GenerateJsonSchema
 
 from semantic_model.payloads import AgentPayload
 from semantic_model.payloads import IntakeResolvedDbSpan
@@ -19,8 +20,21 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+class JSONSchemaGenerator(GenerateJsonSchema):
+    def generate(self, schema, mode='validation'):
+        json_schema = super().generate(schema, mode=mode)
+        json_schema['$schema'] = self.schema_dialect
+
+        try:
+            json_schema = schema['cls'].customize_json_schema(json_schema)
+        except AttributeError:
+            pass
+
+        return json_schema
+
+
 def generate_schema(*args, payload_type, version_info):
-    json_schema_str = json.dumps(payload_type.model_json_schema(), indent=2)
+    json_schema_str = json.dumps(payload_type.model_json_schema(schema_generator=JSONSchemaGenerator), indent=2)
     subdir = "releases" if version_info.is_release else "drafts"
 
     # Create the directory if it doesn't exist
