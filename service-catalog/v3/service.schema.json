@@ -72,18 +72,18 @@
           }
         },
         "integrations": {
-          "$ref": "integration.schema.json#"
+          "$ref": "integration.schema.json"
         },
         "datadog": {
           "type": "object",
           "description": "Datadog product integrations for the service entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": {"$ref": "datadog_performance.schema.json#"},
-            "pipelines": {"$ref": "datadog_pipelines.schema.json#"},
-            "events": {"$ref": "datadog_events.schema.json#"},
-            "logs": {"$ref": "datadog_logs.schema.json#"},
-            "code": {"$ref": "datadog_code.schema.json#"}
+            "performanceData": {"$ref": "datadog_performance.schema.json"},
+            "pipelines": {"$ref": "datadog_pipelines.schema.json"},
+            "events": {"$ref": "datadog_events.schema.json"},
+            "logs": {"$ref": "datadog_logs.schema.json"},
+            "code": {"$ref": "datadog_code.schema.json"}
           }
         }
       }

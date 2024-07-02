@@ -5,7 +5,7 @@
   "additionalProperties": false,
   "type": "object",
   "properties": {
-    "pagerduty": {"$ref": "integration_pagerduty.schema.json#"},
-    "opsgenie": {"$ref": "integration_opsgenie.schema.json#"}
+    "pagerduty": {"$ref": "integration_pagerduty.schema.json"},
+    "opsgenie": {"$ref": "integration_opsgenie.schema.json"}
   }
 }
