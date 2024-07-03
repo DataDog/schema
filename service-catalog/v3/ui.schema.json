@@ -1,7 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/application.schema.json",
-  "description": "[Deprecated - replaced by kind:system] Schema for application entities",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/ui.schema.json",
+  "description": "Schema for User Interface (UI) entities",
+  "examples": [],
   "allOf": [
     {
       "$ref": "entity.schema.json"
@@ -14,7 +15,13 @@
           "enum": ["v3"]
         },
         "kind": {
-          "enum": ["application"]
+          "enum": ["ui"]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
         },
         "spec": {
           "type": "object",
@@ -32,20 +39,19 @@
             },
             "tier": {
               "type": "string",
-              "description": "An entity reference to the owner of the component.",
-              "examples": [
-                "artist-relations-team",
-                "user:john.johnson"
-              ],
+              "description": "The importance of the component",
+              "examples": ["1", "High"],
               "minLength": 1
             },
-            "components": {
-              "description": "A list of components belongs to the application.",
+            "type": {
+              "description": "The type of user interface",
+              "examples": ["web", "mobile", "desktop", "cli"],
+              "type": "string"
+            },
+            "dependsOn": {
+              "description": "The dependencies of the UI",
               "examples": [
-                "service:myapp",
-                "queue:myqueue",
-                "datastore:mydatastore",
-                "library:mylibrary"
+                "service:backendService"
               ],
               "type": "array",
               "items": {
@@ -54,24 +60,19 @@
             }
           }
         },
-        "metadata": {
-          "type": "object"
-        },
-        "extensions": {
-          "type": "object"
-        },
         "integrations": {
           "$ref": "integration.schema.json"
         },
         "datadog": {
           "type": "object",
-          "description": "Datadog product integrations for the service entity",
+          "description": "Datadog product integrations for the UI entity",
           "additionalProperties": false,
           "properties": {
             "performanceData": {"$ref": "datadog_performance.schema.json"},
             "pipelines": {"$ref": "datadog_pipelines.schema.json"},
             "events": {"$ref": "datadog_events.schema.json"},
-            "logs": {"$ref": "datadog_logs.schema.json"}
+            "logs": {"$ref": "datadog_logs.schema.json"},
+            "code": {"$ref": "datadog_code.schema.json"}
           }
         }
       }

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/application.schema.json",
-  "description": "[Deprecated - replaced by kind:system] Schema for application entities",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/system.schema.json",
+  "description": "Schema for system entities",
   "allOf": [
     {
       "$ref": "entity.schema.json"
@@ -14,7 +14,7 @@
           "enum": ["v3"]
         },
         "kind": {
-          "enum": ["application"]
+          "enum": ["system"]
         },
         "spec": {
           "type": "object",
@@ -40,7 +40,7 @@
               "minLength": 1
             },
             "components": {
-              "description": "A list of components belongs to the application.",
+              "description": "A list of components belongs to the system.",
               "examples": [
                 "service:myapp",
                 "queue:myqueue",
