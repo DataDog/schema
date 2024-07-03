@@ -72,7 +72,7 @@
             "pipelines": {"$ref": "datadog_pipelines.schema.json"},
             "events": {"$ref": "datadog_events.schema.json"},
             "logs": {"$ref": "datadog_logs.schema.json"},
-            "code": {"$ref": "datadog_code.schema.json"}
+            "codeLocations": {"$ref": "datadog_code_locations.schema.json"}
           }
         }
       }
