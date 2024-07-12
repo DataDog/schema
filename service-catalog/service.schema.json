@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/service.schema.json",
+  "title": "Service Definition Versions [v1, v2, v2.1, v2.2]",
   "oneOf": [
     {
       "allOf": [
