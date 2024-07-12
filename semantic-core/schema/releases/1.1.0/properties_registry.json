@@ -1,0 +1,41 @@
+{
+  "$defs": {
+    "PoliciesEnum": {
+      "enum": [
+        "GDPR",
+        "CCPA",
+        "HIPAA"
+      ],
+      "title": "PoliciesEnum",
+      "type": "string"
+    }
+  },
+  "description": "Represents the registry of all Semantic Properties, i.e. the properties that can be used to define Semantic Types.",
+  "properties": {
+    "is_sensitive": {
+      "aspect": "security",
+      "description": "Indicates if the field associated with this property contains sensitive data or not.",
+      "internal_description": "Sensitive data has some implications that T&S must define.",
+      "is_internal": false,
+      "title": "Is Sensitive",
+      "type": "boolean"
+    },
+    "data_policies": {
+      "aspect": "security",
+      "description": "A list of data policies that apply to the associated field.",
+      "is_internal": false,
+      "items": {
+        "$ref": "#/$defs/PoliciesEnum"
+      },
+      "title": "Data Policies",
+      "type": "array"
+    }
+  },
+  "required": [
+    "is_sensitive",
+    "data_policies"
+  ],
+  "title": "PropertiesRegistry",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

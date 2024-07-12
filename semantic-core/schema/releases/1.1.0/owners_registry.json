@@ -1,0 +1,19 @@
+{
+  "description": "Represents the registry of all Semantic Owners, i.e. the owners that maintain Semantic Properties.",
+  "properties": {
+    "trust_and_safety": {
+      "contacts": [],
+      "description": "This is the team responsible for the Trust and Safety of our customers.",
+      "id": "trust_and_safety",
+      "team": "Trust and Safety",
+      "title": "Trust And Safety",
+      "type": "string"
+    }
+  },
+  "required": [
+    "trust_and_safety"
+  ],
+  "title": "OwnersRegistry",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
