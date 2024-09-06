@@ -51,7 +51,7 @@
           }
         },
         "integrations": {
-          "$ref": "integration.schema.json"
+          "$ref": "integrations.schema.json"
         },
         "datadog": {
           "type": "object",
