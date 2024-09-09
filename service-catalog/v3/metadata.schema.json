@@ -108,9 +108,6 @@
         "then": {
           "properties": { "contact": { "format": "email" } }
         },
-        "else": {
-          "properties": { "contact": { "format": "uri" } }
-        },
         "required": ["type", "contact"]
       }
     },
