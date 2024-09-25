@@ -26,13 +26,8 @@
     },
     "owner": {
       "description": "The owner of the entity, usually a team",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "description": "Team name",
-          "type": "string"
-        }
-      }
+      "examples": ["myTeam"],
+      "type": "string"
     },
     "additionalOwners": {
       "description": "The additional owners of the entity, usually a team",
