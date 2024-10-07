@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/service.schema.json",
-  "title": "Service Definition Versions [v1, v2, v2.1, v2.2, v3]",
+  "title": "Service Definition Versions [v1, v2, v2.1, v2.2]",
   "oneOf": [
     {
       "allOf": [
@@ -56,23 +56,6 @@
         },
         {
           "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v2.2/schema.json"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
-            "apiVersion": {
-              "const": "v3"
-            }, 
-            "kind": {
-              "const": "service"
-            }
-          }
-        },
-        {
-          "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/service.schema.json"
         }
       ]
     }
