@@ -1,5 +1,5 @@
 # Schema (v3)
- An [Entity Catalog](https://docs.datadoghq.com/service_catalog/add_metadata#metadata-schema-v30-beta) is a powerful way to capture and manage the complex web of relationships between all the components of an organization's infrastructure and softwares, beyond services. 
+ The [Software Catalog](https://docs.datadoghq.com/api/latest/software-catalog/) is a powerful way to capture and manage the complex web of relationships between all the components of an organization's infrastructure and softwares, beyond services. 
 
 # Schema (v2.2)
 Service Definition Schema is a JSON Schema that can be used to define metadata about a service in Datadog's Software Catalog. The latest schema version is v2.2. The schema is often used to: 
@@ -20,8 +20,6 @@ Software Catalog is a new Datadog product that allows you to easily manage servi
 
 # Getting Started
 Check out our [onboarding guide](https://docs.datadoghq.com/tracing/service_catalog/setup) on how to get started. 
-
-![sc-getting-started](../images/updated-sc-getting-started.png)
 
 # Documentation 
 * [Product Overview](https://docs.datadoghq.com/tracing/faq/service_catalog/)
