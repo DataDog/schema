@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/DataDog/schema/tree/main/service-catalog/v1/schema.json",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v1/schema.json",
   "title": "[Deprecated] Service Definition Schema",
   "description": "[Deprecated] A service definition for providing additional service metadata and integrations v1",
   "type": "object",
