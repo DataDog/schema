@@ -12,10 +12,14 @@
       "additionalProperties": false,
       "properties": {
         "apiVersion": {
-          "enum": ["v3"]
+          "enum": [
+            "v3"
+          ]
         },
         "kind": {
-          "enum": ["service"]
+          "enum": [
+            "service"
+          ]
         },
         "metadata": {
           "type": "object"
@@ -40,17 +44,37 @@
             "tier": {
               "type": "string",
               "description": "The importance of the component",
-              "examples": ["1", "High"],
+              "examples": [
+                "1",
+                "High"
+              ],
               "minLength": 1
             },
             "type": {
               "description": "The type of service",
-              "examples": ["web", "grpc", "http", "rest", "graphql"],
+              "examples": [
+                "web",
+                "grpc",
+                "http",
+                "rest",
+                "graphql"
+              ],
               "type": "string"
             },
             "languages": {
               "description": "The service's programming language. See examples for a list of recognizable languages",
-              "examples": [["dotnet", "go", "java", "js", "php", "python", "ruby", "c++"]],
+              "examples": [
+                [
+                  "dotnet",
+                  "go",
+                  "java",
+                  "js",
+                  "php",
+                  "python",
+                  "ruby",
+                  "c++"
+                ]
+              ],
               "type": "array",
               "items": {
                 "type": "string"
@@ -68,6 +92,17 @@
               "items": {
                 "type": "string"
               }
+            },
+            "componentOf": {
+              "description": "A list of components the service is a part of",
+              "examples": [
+                "system:my-example-system",
+                "service:myapp"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -79,11 +114,21 @@
           "description": "Datadog product integrations for the service entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": {"$ref": "datadog_performance.schema.json"},
-            "pipelines": {"$ref": "datadog_pipelines.schema.json"},
-            "events": {"$ref": "datadog_events.schema.json"},
-            "logs": {"$ref": "datadog_logs.schema.json"},
-            "codeLocations": {"$ref": "datadog_code_locations.schema.json"}
+            "performanceData": {
+              "$ref": "datadog_performance.schema.json"
+            },
+            "pipelines": {
+              "$ref": "datadog_pipelines.schema.json"
+            },
+            "events": {
+              "$ref": "datadog_events.schema.json"
+            },
+            "logs": {
+              "$ref": "datadog_logs.schema.json"
+            },
+            "codeLocations": {
+              "$ref": "datadog_code_locations.schema.json"
+            }
           }
         }
       }

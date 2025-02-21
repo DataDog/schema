@@ -12,10 +12,14 @@
       "additionalProperties": false,
       "properties": {
         "apiVersion": {
-          "enum": ["v3"]
+          "enum": [
+            "v3"
+          ]
         },
         "kind": {
-          "enum": ["queue"]
+          "enum": [
+            "queue"
+          ]
         },
         "metadata": {
           "type": "object"
@@ -40,13 +44,30 @@
             "tier": {
               "type": "string",
               "description": "The importance of the queue",
-              "examples": ["1", "High"],
+              "examples": [
+                "1",
+                "High"
+              ],
               "minLength": 1
             },
             "type": {
               "description": "The type of queue",
-              "examples": ["kafka", "rabbitmq"],
+              "examples": [
+                "kafka",
+                "rabbitmq"
+              ],
               "type": "string"
+            },
+            "componentOf": {
+              "description": "A list of components the queue is a part of",
+              "examples": [
+                "system:my-example-system",
+                "service:myapp"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -58,9 +79,15 @@
           "description": "Datadog product integrations for the datastore entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": {"$ref": "datadog_performance.schema.json"},
-            "events": {"$ref": "datadog_events.schema.json"},
-            "logs": {"$ref": "datadog_logs.schema.json"}
+            "performanceData": {
+              "$ref": "datadog_performance.schema.json"
+            },
+            "events": {
+              "$ref": "datadog_events.schema.json"
+            },
+            "logs": {
+              "$ref": "datadog_logs.schema.json"
+            }
           }
         }
       }
