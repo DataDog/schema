@@ -1,0 +1,88 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/custom.schema.json",
+    "description": "Schema for custom entities",
+    "examples": [],
+    "allOf": [
+        {
+            "$ref": "entity.schema.json"
+        },
+        {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "apiVersion": {
+                    "enum": [
+                        "v3"
+                    ]
+                },
+                "kind": {
+                    "type": "string",
+                    "pattern": "^custom\\.[a-z]+(?:[A-Z][a-z]*)*$"
+                },
+                "metadata": {
+                    "type": "object"
+                },
+                "extensions": {
+                    "type": "object"
+                },
+                "spec": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "dependsOn": {
+                            "description": "A list of components the entity depends on",
+                            "examples": [
+                                "service:myapp",
+                                "queue:myqueue",
+                                "datastore:mydatastore",
+                                "library:mylibrary"
+                            ],
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "dependencyOf": {
+                            "description": "A list of components the entity is a dependency of",
+                            "examples": [
+                                "service:parentapp"
+                            ],
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "componentOf": {
+                            "description": "A list of components the entity is a part of",
+                            "examples": [
+                                "system:my-example-system",
+                                "service:myapp"
+                            ],
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "integrations": {
+                    "$ref": "integrations.schema.json"
+                },
+                "datadog": {
+                    "type": "object",
+                    "description": "Datadog product integrations for the entity",
+                    "additionalProperties": false,
+                    "properties": {
+                        "events": {
+                            "$ref": "datadog_events.schema.json"
+                        },
+                        "logs": {
+                            "$ref": "datadog_logs.schema.json"
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
