@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/api.schema.json",
   "description": "Schema for API entities",
-  "examples": [ ],
+  "examples": [],
   "allOf": [
     {
       "$ref": "entity.schema.json"
@@ -12,10 +12,14 @@
       "additionalProperties": false,
       "properties": {
         "apiVersion": {
-          "enum": [ "v3" ]
+          "enum": [
+            "v3"
+          ]
         },
         "kind": {
-          "enum": [ "api" ]
+          "enum": [
+            "api"
+          ]
         },
         "metadata": {
           "type": "object"
@@ -43,15 +47,19 @@
                   "type": "object",
                   "description": "The API definition",
                   "format": "openapi",
-                  "properties": { }
+                  "properties": {}
                 }
               },
               "oneOf": [
                 {
-                  "required": [ "fileRef" ]
+                  "required": [
+                    "fileRef"
+                  ]
                 },
                 {
-                  "required": [ "definition" ]
+                  "required": [
+                    "definition"
+                  ]
                 }
               ],
               "additionalProperties": false
@@ -69,18 +77,37 @@
             "tier": {
               "type": "string",
               "description": "The importance of the component",
-              "examples": [ "1", "High" ],
+              "examples": [
+                "1",
+                "High"
+              ],
               "minLength": 1
             },
             "type": {
               "description": "The type of API",
-              "examples": [ "openapi", "graphql", "rest", "grpc" ],
+              "examples": [
+                "openapi",
+                "graphql",
+                "rest",
+                "grpc"
+              ],
               "type": "string"
             },
             "implementedBy": {
               "description": "Services which implemented the API",
               "examples": [
                 "service:apiService"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "componentOf": {
+              "description": "A list of components the API is a part of",
+              "examples": [
+                "system:my-example-system",
+                "service:myapp"
               ],
               "type": "array",
               "items": {
@@ -97,11 +124,21 @@
           "description": "Datadog product integrations for the API entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": { "$ref": "datadog_performance.schema.json" },
-            "pipelines": { "$ref": "datadog_pipelines.schema.json" },
-            "events": { "$ref": "datadog_events.schema.json" },
-            "logs": { "$ref": "datadog_logs.schema.json" },
-            "codeLocations": { "$ref": "datadog_code_locations.schema.json" }
+            "performanceData": {
+              "$ref": "datadog_performance.schema.json"
+            },
+            "pipelines": {
+              "$ref": "datadog_pipelines.schema.json"
+            },
+            "events": {
+              "$ref": "datadog_events.schema.json"
+            },
+            "logs": {
+              "$ref": "datadog_logs.schema.json"
+            },
+            "codeLocations": {
+              "$ref": "datadog_code_locations.schema.json"
+            }
           }
         }
       }
