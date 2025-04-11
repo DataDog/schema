@@ -18,7 +18,7 @@
                 },
                 "kind": {
                     "type": "string",
-                    "pattern": "^custom\\.[a-z]+(?:[A-Z][a-z]*)*$"
+                    "pattern": "^custom\\.(?:[a-z]+(?:[A-Z][a-z0-9]*)*|[a-z]+(?:-[a-z0-9]+)*|[a-z]+(?:_[a-z0-9]+)*)$"
                 },
                 "metadata": {
                     "type": "object"
