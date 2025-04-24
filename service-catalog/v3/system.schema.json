@@ -11,14 +11,10 @@
       "additionalProperties": false,
       "properties": {
         "apiVersion": {
-          "enum": [
-            "v3"
-          ]
+          "enum": ["v3"]
         },
         "kind": {
-          "enum": [
-            "system"
-          ]
+          "enum": ["system"]
         },
         "spec": {
           "type": "object",
@@ -37,10 +33,7 @@
             "tier": {
               "type": "string",
               "description": "The importance of the system",
-              "examples": [
-                "1",
-                "High"
-              ],
+              "examples": ["1", "High"],
               "minLength": 1
             },
             "components": {
@@ -57,14 +50,14 @@
               }
             },
             "componentOf": {
-              "description": "A list of components the system is a part of",
-              "examples": [
-                "system:my-example-system"
-              ],
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+                "description": "A list of components the system is a part of",
+                "examples": [
+                    "system:my-example-system"
+                ],
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
             }
           }
         },
@@ -82,18 +75,11 @@
           "description": "Datadog product integrations for the service entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": {
-              "$ref": "datadog_performance.schema.json"
-            },
-            "pipelines": {
-              "$ref": "datadog_pipelines.schema.json"
-            },
-            "events": {
-              "$ref": "datadog_events.schema.json"
-            },
-            "logs": {
-              "$ref": "datadog_logs.schema.json"
-            }
+            "performanceData": {"$ref": "datadog_performance.schema.json"},
+            "pipelines": {"$ref": "datadog_pipelines.schema.json"},
+            "events": {"$ref": "datadog_events.schema.json"},
+            "logs": {"$ref": "datadog_logs.schema.json"},
+            "codeLocations": {"$ref": "datadog_code_locations.schema.json"}
           }
         }
       }
