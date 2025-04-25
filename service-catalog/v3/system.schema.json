@@ -93,6 +93,9 @@
             },
             "logs": {
               "$ref": "datadog_logs.schema.json"
+            },
+            "codeLocations": {
+              "$ref": "datadog_code_locations.schema.json"
             }
           }
         }
