@@ -76,17 +76,23 @@
         },
         "datadog": {
           "type": "object",
-          "description": "Datadog product integrations for the datastore entity",
+          "description": "Datadog product integrations for the queue entity",
           "additionalProperties": false,
           "properties": {
             "performanceData": {
               "$ref": "datadog_performance.schema.json"
+            },
+            "pipelines": {
+              "$ref": "datadog_pipelines.schema.json"
             },
             "events": {
               "$ref": "datadog_events.schema.json"
             },
             "logs": {
               "$ref": "datadog_logs.schema.json"
+            },
+            "codeLocations": {
+              "$ref": "datadog_code_locations.schema.json"
             }
           }
         }
