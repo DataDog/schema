@@ -79,7 +79,7 @@
         },
         "datadog": {
           "type": "object",
-          "description": "Datadog product integrations for the service entity",
+          "description": "Datadog product integrations for the system entity",
           "additionalProperties": false,
           "properties": {
             "performanceData": {

@@ -18,7 +18,7 @@
                 },
                 "kind": {
                     "type": "string",
-                    "pattern": "^custom\\.(?:[a-z]+(?:[A-Z][a-z0-9]*)*|[a-z]+(?:-[a-z0-9]+)*|[a-z]+(?:_[a-z0-9]+)*)$"
+                    "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
                 },
                 "metadata": {
                     "type": "object"
@@ -71,14 +71,23 @@
                 },
                 "datadog": {
                     "type": "object",
-                    "description": "Datadog product integrations for the entity",
+                    "description": "Datadog product integrations for the custom entity",
                     "additionalProperties": false,
                     "properties": {
+                        "performanceData": {
+                            "$ref": "datadog_performance.schema.json"
+                        },
+                        "pipelines": {
+                            "$ref": "datadog_pipelines.schema.json"
+                        },
                         "events": {
                             "$ref": "datadog_events.schema.json"
                         },
                         "logs": {
                             "$ref": "datadog_logs.schema.json"
+                        },
+                        "codeLocations": {
+                            "$ref": "datadog_code_locations.schema.json"
                         }
                     }
                 }
