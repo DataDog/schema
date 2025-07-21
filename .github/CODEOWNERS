@@ -6,6 +6,6 @@
 *                       @DataDog/service-catalog
 
 ## Subdirectories
-/datadog-ci             @DataDog/datadog-ci
+/datadog-ci             @DataDog/datadog-ci-admins
 /service-catalog        @DataDog/service-catalog
 /semantic-core          @DataDog/semantic-core
