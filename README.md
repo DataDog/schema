@@ -10,7 +10,10 @@ JSON Schema is a vocabulary that allows you to annotate and validate JSON docume
     * Ensuring quality of client submitted data.
 
 # How’s JSON Schema used at Datadog?
-[Service Catalog](./service-catalog/README.md) is the first product that is actively leveraging JSON Schema at Datadog.
+
+Here is the list of products that are leveraging JSON Schema at Datadog:
+- [Continuous Testing](./datadog-ci/README.md)
+- [Service Catalog](./service-catalog/README.md) 
 
 # Datadog JSON Schemas in Schema Store 
 We have registered all Datadog JSON Schemas with the open source [Schema Store](https://www.schemastore.org/json/). By registering with Schema Store, we have added capability for the popular IDEs to auto complete and validate Datadog’s JSON Schemas.  
