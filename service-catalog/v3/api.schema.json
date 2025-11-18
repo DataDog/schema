@@ -124,9 +124,6 @@
           "description": "Datadog product integrations for the API entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": {
-              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json"
-            },
             "pipelines": {
               "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json"
             },
