@@ -53,6 +53,13 @@
       "examples": ["myService"],
       "minLength": 1
     },
+    "namespace": {
+      "type": "string",
+      "default": "default",
+      "description": "Namespace used to group entities under the kind (e.g. `{kind}/{namespace}/{name}`)",
+      "examples": ["myNamespace"],
+      "minLength": 1
+    },
     "description": {
       "type": "string",
       "description": "Short description of the entity. The UI can leverage the description for display"
