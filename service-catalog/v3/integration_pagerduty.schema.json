@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/pagerduty.schema.json",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_pagerduty.schema.json",
   "type": "object",
   "description": "An PagerDuty integration schema",
   "required": ["serviceURL"],
