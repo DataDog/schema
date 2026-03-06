@@ -63,6 +63,26 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "lifecycle": {
+                            "type": "string",
+                            "description": "The lifecycle state of the component.",
+                            "examples": [
+                                "experimental",
+                                "production",
+                                "deprecated"
+                            ],
+                            "minLength": 1
+                        },
+                        "tier": {
+                            "type": "string",
+                            "description": "The importance of the component",
+                            "examples": ["1", "High"],
+                            "minLength": 1
+                        },
+                        "type": {
+                            "description": "The type of the custom entity",
+                            "type": "string"
                         }
                     }
                 },
