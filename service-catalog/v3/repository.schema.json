@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/repository.schema.json",
+  "description": "Schema for repository entities",
+  "allOf": [
+    {
+      "$ref": "entity.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": ["v3"]
+        },
+        "kind": {
+          "enum": ["repository"]
+        },
+        "spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lifecycle": {
+              "type": "string",
+              "description": "The lifecycle state of the repository",
+              "examples": [
+                "experimental",
+                "production",
+                "deprecated"
+              ],
+              "minLength": 1
+            },
+            "tier": {
+              "type": "string",
+              "description": "The importance of the repository",
+              "examples": ["1", "High"],
+              "minLength": 1
+            },
+            "type": {
+              "description": "The type of repository",
+              "type": "string"
+            },
+            "dependsOn": {
+              "description": "A list of components that the repository depends on",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "componentOf": {
+              "description": "A list of components the repository is a part of",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dependencyOf": {
+              "description": "A list of components that the repository is a dependency of",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "integrations": {
+          "$ref": "integrations.schema.json"
+        },
+        "datadog": {
+          "type": "object",
+          "description": "Datadog product integrations for the repository entity",
+          "additionalProperties": false,
+          "properties": {
+            "performanceData": {"$ref": "datadog_performance.schema.json"},
+            "pipelines": {"$ref": "datadog_pipelines.schema.json"},
+            "events": {"$ref": "datadog_events.schema.json"},
+            "logs": {"$ref": "datadog_logs.schema.json"},
+            "codeLocations": {"$ref": "datadog_code_locations.schema.json"}
+          }
+        }
+      }
+    }
+  ]
+}
