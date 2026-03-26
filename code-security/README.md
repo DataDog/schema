@@ -1,5 +1,8 @@
 # Schemas
 
+## v1.1
+* Add SCA `ignore-paths` configuration
+
 ## v1.0
 * Add SAST configuration
 
