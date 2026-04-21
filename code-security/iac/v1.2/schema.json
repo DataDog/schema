@@ -8,16 +8,14 @@
     "ignore-rules": {
       "type": "array",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "string"
       },
       "description": "A list of rule IDs that will not be applied in scans."
     },
     "use-rules": {
       "type": "array",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "string"
       },
       "description": "A list of rule IDs that will be applied in scans. If specified, only these rules will be used (unless other configuration causes them to be ignored)."
     },
@@ -60,8 +58,7 @@
     "pathList": {
       "type": "array",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "string"
       },
       "description": "List of file paths or glob patterns."
     },
