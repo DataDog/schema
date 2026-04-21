@@ -8,6 +8,9 @@
     },
     {
       "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/versions/v1.1/schema.json"
+    },
+    {
+      "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/versions/v1.2/schema.json"
     }
   ]
 }

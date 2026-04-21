@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/iac/v1.2/validation.schema.json",
+  "title": "Datadog IaC Configuration Validation",
+  "description": "Validation for v1.x",
+  "type": "object",
+  "required": ["schema-version"],
+  "additionalProperties": false,
+  "properties": {
+    "schema-version": {
+      "type": "string",
+      "pattern": "^v1\\.\\d+$"
+    },
+    "sast": {},
+    "secrets": {},
+    "iac": {
+      "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/iac/v1.2/schema.json"
+    },
+    "sca": {},
+    "iast": {}
+  }
+}
