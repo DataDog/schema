@@ -71,12 +71,7 @@
         "high",
         "medium",
         "low",
-        "info",
-        "CRITICAL",
-        "HIGH",
-        "MEDIUM",
-        "LOW",
-        "INFO"
+        "info"
       ]
     },
     "severityList": {
