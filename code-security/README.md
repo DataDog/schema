@@ -1,5 +1,8 @@
 # Schemas
 
+## v1.2
+* Add IaC scanner configuration.
+
 ## v1.1
 * Add SCA `ignore-paths` configuration
 

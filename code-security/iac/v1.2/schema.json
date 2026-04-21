@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/iac/v1.2/schema.json",
+  "title": "Datadog IaC Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "ignore-rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A list of rule IDs that will not be applied in scans."
+    },
+    "use-rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A list of rule IDs that will be applied in scans. If specified, only these rules will be used (unless other configuration causes them to be ignored)."
+    },
+    "global-config": {
+      "$ref": "#/$defs/globalConfig",
+      "description": "Global settings for the IaC scanner."
+    }
+  },
+  "$defs": {
+    "globalConfig": {
+      "type": "object",
+      "properties": {
+        "ignore-paths": {
+          "$ref": "#/$defs/pathList",
+          "description": "A list of pathnames and glob patterns for files and directories that should not be scanned."
+        },
+        "only-paths": {
+          "$ref": "#/$defs/pathList",
+          "description": "A list of pathnames and glob patterns; only files and directories matching those patterns will be scanned."
+        },
+        "ignore-severities": {
+          "$ref": "#/$defs/severityList",
+          "description": "A list of severities; findings matching one of these severities will not be reported."
+        },
+        "only-severities": {
+          "$ref": "#/$defs/severityList",
+          "description": "A list of severities; only findings matching one of these severities will be reported."
+        },
+        "ignore-categories": {
+          "$ref": "#/$defs/categoryList",
+          "description": "A list of categories; findings matching one of these categories will not be reported."
+        },
+        "only-categories": {
+          "$ref": "#/$defs/categoryList",
+          "description": "A list of categories; only findings matching one of those categories will be reported."
+        }
+      },
+      "additionalProperties": false
+    },
+    "pathList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of file paths or glob patterns."
+    },
+    "severity": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "info"
+      ]
+    },
+    "severityList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/severity"
+      }
+    },
+    "category": {
+      "enum": [
+        "Access Control",
+        "Availability",
+        "Backup",
+        "Best Practices",
+        "Bill Of Materials",
+        "Build Process",
+        "Encryption",
+        "Insecure Configurations",
+        "Insecure Defaults",
+        "Networking and Firewall",
+        "Observability",
+        "Resource Management",
+        "Secret Management",
+        "Structure and Semantics",
+        "Supply-Chain"
+      ]
+    },
+    "categoryList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/category"
+      }
+    }
+  }
+}
