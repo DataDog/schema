@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_jsm_ops.schema.json",
+  "type": "object",
+  "description": "A Jira Service Management Operations integration schema",
+  "required": ["teamURL"],
+  "additionalProperties": false,
+  "properties": {
+    "teamURL": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The team url for the Jira Service Management Operations integration."
+    }
+  }
+}
