@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/scfw/v1.0/validation.schema.json",
+  "title": "Datadog SCFW Policy Configuration Validation",
+  "description": "Validation for v1.x",
+  "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/scfw/v1.0/schema.json"
+}
