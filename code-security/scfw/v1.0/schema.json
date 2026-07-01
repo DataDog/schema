@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/scfw/v1.0/schema.json",
+  "title": "Datadog SCFW Policy Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema-version"],
+  "properties": {
+    "schema-version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Configuration schema version."
+    },
+    "behaviours": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "non_interactive_block_on_warning": {
+          "type": "boolean",
+          "default": true,
+          "description": "On non interactive setup such as CI pipelines, define whether it should block or allow"
+        },
+        "recent_packages_behaviour": {
+          "type": "string",
+          "enum": ["block", "warn", "allow"],
+          "default": "block",
+          "description": "Define whether we should block, warn or allow when installing a package which has been published less than recent_package_timeout ago"
+        },
+        "recent_package_timeout": {
+          "type": "integer",
+          "default": 86400,
+          "description": "The number of second during which we consider a package recent."
+        }
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "block": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/policyRule"
+          }
+        },
+        "allow": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/policyRule"
+          }
+        },
+        "warn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/policyRule"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "policyRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ecosystem", "package_name", "package_version"],
+      "properties": {
+        "ecosystem": {
+          "type": "string",
+          "enum": ["npm", "pypi"]
+        },
+        "package_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "package_version": {
+          "type": "string",
+          "format": "regex",
+          "description": "A regex describing which versions should be impacted",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
