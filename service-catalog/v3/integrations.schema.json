@@ -7,6 +7,7 @@
   "properties": {
     "pagerduty": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_pagerduty.schema.json"},
     "opsgenie": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_opsgenie.schema.json"},
-    "jiraServiceManagementOps": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_jsm_ops.schema.json"}
+    "jiraServiceManagementOps": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_jsm_ops.schema.json"},
+    "sentry": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_sentry.schema.json"}
   }
 }

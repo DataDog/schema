@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_sentry.schema.json",
+  "type": "object",
+  "description": "A Sentry integration schema",
+  "required": ["projectSlugs"],
+  "additionalProperties": false,
+  "properties": {
+    "projectSlugs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "description": "The project slugs for the Sentry integration."
+    }
+  }
+}
