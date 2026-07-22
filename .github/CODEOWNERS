@@ -3,9 +3,9 @@
 # and another team can own the rest of the directory.
 
 # All your base
-*                       @DataDog/service-catalog @DataDog/k9-vm-code-security
+*                       @DataDog/idp @DataDog/k9-vm-code-security
 
 ## Subdirectories
 /datadog-ci             @DataDog/datadog-ci-admins
-/service-catalog        @DataDog/service-catalog
+/service-catalog        @DataDog/idp
 /semantic-core          @DataDog/semantic-core
