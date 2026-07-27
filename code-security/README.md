@@ -1,5 +1,14 @@
 # Schemas
 
+## v1.5
+* Add secrets scanner `global-config` (`ignore-paths`, `only-paths`, `use-gitignore`, `ignore-generated-files`, `max-file-size-kb`)
+
+## v1.4
+* Add `arguments` to IaC rule configuration
+
+## v1.3
+* Add `rule-configs`, `ignore-platforms`, and `only-platforms` to IaC configuration
+
 ## v1.2
 * Add IaC scanner configuration.
 
