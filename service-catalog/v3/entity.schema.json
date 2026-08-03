@@ -4,14 +4,22 @@
   "description": "The base shape of a Datadog software entity",
   "examples": [],
   "type": "object",
-  "required": ["apiVersion", "kind", "metadata"],
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata"
+  ],
   "additionalProperties": false,
   "properties": {
     "apiVersion": {
       "type": "string",
       "description": "The schema version of entity type. The field is known as schema-version in the previous version",
-      "enum": ["v3"],
-      "examples": ["v3"]
+      "enum": [
+        "v3"
+      ],
+      "examples": [
+        "v3"
+      ]
     },
     "kind": {
       "type": "string",

@@ -4,17 +4,21 @@
   "description": "Schema for repository entities",
   "allOf": [
     {
-      "$ref": "entity.schema.json"
+      "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/entity.schema.json"
     },
     {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "apiVersion": {
-          "enum": ["v3"]
+          "enum": [
+            "v3"
+          ]
         },
         "kind": {
-          "enum": ["repository"]
+          "enum": [
+            "repository"
+          ]
         },
         "spec": {
           "type": "object",
@@ -33,7 +37,10 @@
             "tier": {
               "type": "string",
               "description": "The importance of the repository",
-              "examples": ["1", "High"],
+              "examples": [
+                "1",
+                "High"
+              ],
               "minLength": 1
             },
             "type": {
@@ -70,18 +77,28 @@
           "type": "object"
         },
         "integrations": {
-          "$ref": "integrations.schema.json"
+          "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integrations.schema.json"
         },
         "datadog": {
           "type": "object",
           "description": "Datadog product integrations for the repository entity",
           "additionalProperties": false,
           "properties": {
-            "performanceData": {"$ref": "datadog_performance.schema.json"},
-            "pipelines": {"$ref": "datadog_pipelines.schema.json"},
-            "events": {"$ref": "datadog_events.schema.json"},
-            "logs": {"$ref": "datadog_logs.schema.json"},
-            "codeLocations": {"$ref": "datadog_code_locations.schema.json"}
+            "performanceData": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json"
+            },
+            "pipelines": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json"
+            },
+            "events": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_events.schema.json"
+            },
+            "logs": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json"
+            },
+            "codeLocations": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_code_locations.schema.json"
+            }
           }
         }
       }

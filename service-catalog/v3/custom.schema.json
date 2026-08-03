@@ -1,114 +1,139 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/custom.schema.json",
-    "description": "Schema for custom entities",
-    "examples": [],
-    "allOf": [
-        {
-            "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/entity.schema.json"
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/custom.schema.json",
+  "description": "Schema for custom entities",
+  "examples": [],
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/entity.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": [
+            "v3"
+          ]
         },
-        {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "apiVersion": {
-                    "enum": [
-                        "v3"
-                    ]
-                },
-                "kind": {
-                    "type": "string",
-                    "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
-                },
-                "metadata": {
-                    "type": "object"
-                },
-                "extensions": {
-                    "type": "object"
-                },
-                "spec": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "dependsOn": {
-                            "description": "A list of components the entity depends on",
-                            "examples": [
-                                "service:myapp",
-                                "queue:myqueue",
-                                "datastore:mydatastore",
-                                "library:mylibrary"
-                            ],
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "dependencyOf": {
-                            "description": "A list of components the entity is a dependency of",
-                            "examples": [
-                                "service:parentapp"
-                            ],
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "componentOf": {
-                            "description": "A list of components the entity is a part of",
-                            "examples": [
-                                "system:my-example-system",
-                                "service:myapp"
-                            ],
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "lifecycle": {
-                            "type": "string",
-                            "description": "The lifecycle state of the component.",
-                            "examples": [
-                                "experimental",
-                                "production",
-                                "deprecated"
-                            ],
-                            "minLength": 1
-                        },
-                        "tier": {
-                            "type": "string",
-                            "description": "The importance of the component",
-                            "examples": ["1", "High"],
-                            "minLength": 1
-                        },
-                        "type": {
-                            "description": "The type of the custom entity",
-                            "type": "string"
-                        }
-                    }
-                },
-                "integrations": {
-                    "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integrations.schema.json"
-                },
-                "datadog": {
-                    "type": "object",
-                    "description": "Datadog product integrations for the custom entity",
-                    "additionalProperties": false,
-                    "properties": {
-                        "pipelines": {
-                            "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json"
-                        },
-                        "events": {
-                            "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_events.schema.json"
-                        },
-                        "logs": {
-                            "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json"
-                        },
-                        "codeLocations": {
-                            "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_code_locations.schema.json"
-                        }
-                    }
-                }
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "spec": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "dependsOn": {
+              "description": "A list of components the entity depends on",
+              "examples": [
+                "service:myapp",
+                "queue:myqueue",
+                "datastore:mydatastore",
+                "library:mylibrary"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dependencyOf": {
+              "description": "A list of components the entity is a dependency of",
+              "examples": [
+                "service:parentapp"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "componentOf": {
+              "description": "A list of components the entity is a part of",
+              "examples": [
+                "system:my-example-system",
+                "service:myapp"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "languages": {
+              "description": "The entity's programming language. See examples for a list of recognizable languages",
+              "examples": [
+                [
+                  "dotnet",
+                  "go",
+                  "java",
+                  "js",
+                  "php",
+                  "python",
+                  "ruby",
+                  "c++"
+                ]
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "lifecycle": {
+              "type": "string",
+              "description": "The lifecycle state of the component.",
+              "examples": [
+                "experimental",
+                "production",
+                "deprecated"
+              ],
+              "minLength": 1
+            },
+            "tier": {
+              "type": "string",
+              "description": "The importance of the component",
+              "examples": [
+                "1",
+                "High"
+              ],
+              "minLength": 1
+            },
+            "type": {
+              "description": "The type of the custom entity",
+              "type": "string"
             }
+          }
+        },
+        "integrations": {
+          "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integrations.schema.json"
+        },
+        "datadog": {
+          "type": "object",
+          "description": "Datadog product integrations for the custom entity",
+          "additionalProperties": false,
+          "properties": {
+            "performanceData": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json"
+            },
+            "pipelines": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json"
+            },
+            "events": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_events.schema.json"
+            },
+            "logs": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_logs.schema.json"
+            },
+            "codeLocations": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_code_locations.schema.json"
+            }
+          }
         }
-    ]
+      }
+    }
+  ]
 }

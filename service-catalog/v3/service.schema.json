@@ -103,6 +103,26 @@
               "items": {
                 "type": "string"
               }
+            },
+            "implements": {
+              "description": "A list of interfaces the service implements",
+              "examples": [
+                "api:my-api"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dependencyOf": {
+              "description": "A list of components that the service is a dependency of",
+              "examples": [
+                "service:myapp"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -114,6 +134,9 @@
           "description": "Datadog product integrations for the service entity",
           "additionalProperties": false,
           "properties": {
+            "performanceData": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json"
+            },
             "pipelines": {
               "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_pipelines.schema.json"
             },

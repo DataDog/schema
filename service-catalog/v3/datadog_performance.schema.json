@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_performance.schema.json",
+  "type": "object",
+  "description": "Performance stats association",
+  "additionalProperties": false,
+  "properties": {
+    "tags": {
+      "description": "A list of APM entity tags that associates the APM Stats data with the entity",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

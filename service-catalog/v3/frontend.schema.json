@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/api.schema.json",
-  "description": "Schema for API entities",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/frontend.schema.json",
+  "description": "Schema for Frontend (User Interface) entities",
   "examples": [],
   "allOf": [
     {
@@ -18,7 +18,7 @@
         },
         "kind": {
           "enum": [
-            "api"
+            "frontend"
           ]
         },
         "metadata": {
@@ -31,47 +31,6 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "interface": {
-              "type": "object",
-              "description": "The API definition",
-              "properties": {
-                "fileRef": {
-                  "type": "string",
-                  "description": "The reference to the API definition file",
-                  "examples": [
-                    "https://github.com/testrepo/openapi.yaml"
-                  ],
-                  "format": "uri"
-                },
-                "definition": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "description": "The API definition",
-                      "format": "openapi",
-                      "properties": {}
-                    },
-                    {
-                      "type": "string",
-                      "description": "The API definition as a proto string"
-                    }
-                  ]
-                }
-              },
-              "oneOf": [
-                {
-                  "required": [
-                    "fileRef"
-                  ]
-                },
-                {
-                  "required": [
-                    "definition"
-                  ]
-                }
-              ],
-              "additionalProperties": false
-            },
             "lifecycle": {
               "type": "string",
               "description": "The lifecycle state of the component.",
@@ -92,19 +51,19 @@
               "minLength": 1
             },
             "type": {
-              "description": "The type of API",
+              "description": "The type of user interface",
               "examples": [
-                "openapi",
-                "graphql",
-                "rest",
-                "grpc"
+                "web",
+                "mobile",
+                "desktop",
+                "cli"
               ],
               "type": "string"
             },
-            "implementedBy": {
-              "description": "Services which implemented the API",
+            "dependsOn": {
+              "description": "The dependencies of the UI",
               "examples": [
-                "service:apiService"
+                "service:backendService"
               ],
               "type": "array",
               "items": {
@@ -112,7 +71,7 @@
               }
             },
             "componentOf": {
-              "description": "A list of components the API is a part of",
+              "description": "A list of components the UI is a part of",
               "examples": [
                 "system:my-example-system",
                 "service:myapp"
@@ -129,7 +88,7 @@
         },
         "datadog": {
           "type": "object",
-          "description": "Datadog product integrations for the API entity",
+          "description": "Datadog product integrations for the UI entity",
           "additionalProperties": false,
           "properties": {
             "performanceData": {
@@ -150,49 +109,6 @@
           }
         }
       }
-    },
-    {
-      "description": "Validation rules for spec.type matching definition type",
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "spec": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "const": "grpc"
-                  }
-                },
-                "required": [
-                  "type"
-                ]
-              }
-            },
-            "required": [
-              "spec"
-            ]
-          },
-          "then": {
-            "properties": {
-              "spec": {
-                "type": "object",
-                "properties": {
-                  "interface": {
-                    "type": "object",
-                    "properties": {
-                      "definition": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "else": true
-        }
-      ]
     }
   ]
 }

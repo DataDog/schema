@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/scorecard-rule.schema.json",
+  "description": "Schema for scorecard rule definitions",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/entity.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": [
+            "v3"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "scorecard-rule"
+          ]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "spec": {
+          "type": "object",
+          "required": [
+            "scorecard",
+            "owner"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "scorecard": {
+              "type": "string",
+              "description": "Name of the scorecard this rule belongs to",
+              "minLength": 1
+            },
+            "owner": {
+              "type": "string",
+              "description": "Team handle or name owning this rule",
+              "examples": [
+                "platform-team",
+                "Non-Datadog Team Name"
+              ],
+              "minLength": 1
+            },
+            "level": {
+              "type": [
+                "string",
+                "integer"
+              ],
+              "description": "Scorecard level (e.g. 1, 2, 3)",
+              "examples": [
+                1,
+                2,
+                3
+              ]
+            },
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether the rule is enabled"
+            },
+            "policyType": {
+              "type": "string",
+              "description": "The type of policy for this rule"
+            },
+            "policyScope": {
+              "type": "object",
+              "description": "Kind-scoped policy scope. Replaces the deprecated scopeQuery field.",
+              "additionalProperties": false,
+              "required": [
+                "scopes"
+              ],
+              "properties": {
+                "scopes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "kind",
+                      "query"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "query": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Filter query for matching entities (*:* matches all)",
+                        "examples": [
+                          "*:*",
+                          "owner:\"payments\"",
+                          "team:\"checkout\""
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

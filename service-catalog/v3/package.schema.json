@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/package.schema.json",
+  "description": "Schema for package entities",
+  "examples": [],
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/entity.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "apiVersion": {
+          "enum": [
+            "v3"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "package"
+          ]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "extensions": {
+          "type": "object"
+        },
+        "spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "dependsOn": {
+              "description": "A list of components the package depends on",
+              "examples": [
+                "service:myapp",
+                "queue:myqueue",
+                "datastore:mydatastore",
+                "package:mylibrary"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "integrations": {
+          "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integrations.schema.json"
+        },
+        "datadog": {
+          "type": "object",
+          "description": "Datadog product integrations for the package entity",
+          "additionalProperties": false,
+          "properties": {
+            "codeLocations": {
+              "$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/datadog_code_locations.schema.json"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
