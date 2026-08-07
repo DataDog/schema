@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_terraform.schema.json",
+  "type": "object",
+  "description": "An HCP Terraform integration schema",
+  "required": ["workspaceIds"],
+  "additionalProperties": false,
+  "properties": {
+    "workspaceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^ws-[a-zA-Z0-9]+$"
+      },
+      "minItems": 1,
+      "description": "The HCP Terraform workspace IDs linked to this service."
+    }
+  }
+}
