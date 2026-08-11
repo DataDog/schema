@@ -48,12 +48,6 @@
           "items": {
             "$ref": "#/$defs/policyRule"
           }
-        },
-        "warn": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/policyRule"
-          }
         }
       }
     }
@@ -74,8 +68,7 @@
         },
         "package_version": {
           "type": "string",
-          "format": "regex",
-          "description": "A regex describing which versions should be impacted",
+          "description": "A glob describing which versions should be impacted",
           "minLength": 1
         }
       }
