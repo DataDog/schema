@@ -1,0 +1,67 @@
+{
+  "schema-version": "v2",
+  "dd-service": "csharp-testes",
+  "team": "TDW",
+  "contacts": [
+    {
+      "type": "email",
+	  "name": "Team Leader e-mail",
+      "contact": "boba@serena.com.br"
+    },
+    {
+      "type": "slack",
+	  "name": "Team Slack Channel",
+      "contact": "https://app.slack.com/huddle/T04H69PTUF2/C04GGM42D6E"
+    },
+    {
+      "type": "microsoft-teams",
+	  "name": "Microsoft Teams Channel",
+      "contact": "https://teams.microsoft.com/l/channel/19%3a1fdb0b93244c445bb0689cab2c829bef%40thread.tacv2/Alertas%2520Datadog?groupId=9a506f2f-cf97-484a-8c38-05759fme5443&tenantId=88666c-eec0-461d-8cea-6dc7e1hhtf8"
+    }	
+  ],
+  "repos": [
+    {
+      "name": "Service Repository",
+      "url": "https://github.com/AlvaroCostaAbreu/Datadog",
+	  "provider": "github"
+    }
+  ],
+  "tags": 
+  [
+   "plataform_ci_cd:harness", "env:prd", 
+   ],
+  "links": [
+		{
+		  "name": "Delivery Pipeline",
+		  "type": "runbook",
+		  "url": "https://keepcalms.com/p/keep-calm-and-boba-serena"
+		},
+		{
+		  "name": "Runtime metrics",
+		  "type": "dashboard",
+		  "url": "https://app.datadoghq.com/dashboard/ptu-au4-nh5/pods-dotnet-runtime-mtricas-da-aplicao?tpl_var_service%5B0%5D=csharp-testes"
+		},
+		{
+		  "name": "Horizontal Pod AutoScalling",
+		  "type": "dashboard",
+		  "url": "https://app.datadoghq.com/dashboard/k5f-pdt-5vv/acompanhamento-hpas"
+		},
+		{
+		  "name": "Wiki Documentation",
+		  "type": "runbook",
+		  "url": "https://en.wikipedia.org/wiki/Datadog"
+		},
+		{
+		  "name": "Application Health",
+		  "type": "runbook",
+		  "url": "https://app.datadoghq.com/"
+		}
+	  ],
+  "docs": [
+  		{
+		  "name": "Service Description",
+		  "provider": "wiki",
+		  "url": "https://docs.datadoghq.com/tracing/service_catalog/"
+		}
+  ]
+}
