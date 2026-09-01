@@ -1,5 +1,8 @@
 # Schemas
 
+## v1.6
+* Add secrets scanner `experimental-ast-filter` configuration
+
 ## v1.5
 * Add secrets scanner `global-config` (`ignore-paths`, `only-paths`, `use-gitignore`, `ignore-generated-files`, `max-file-size-kb`)
 
