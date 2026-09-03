@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/code-security/sca/v1.7/schema.json",
+  "title": "Datadog SCA Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "ignore-paths": {
+      "$ref": "#/$defs/pathList",
+      "description": "List of file paths or glob patterns to exclude from SCA scanning."
+    },
+    "ignore-ecosystems": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ecosystem" },
+      "description": "List of ecosystems to exclude entirely from SCA scanning. Manifests belonging to a matching ecosystem are never parsed."
+    },
+    "ignore-packages": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/packageRef" },
+      "description": "List of packages to exclude from SCA scanning, in the form <ecosystem>:<name> (e.g. npm:lodash). Matches the package under that ecosystem regardless of version."
+    }
+  },
+  "$defs": {
+    "pathList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "List of file paths or glob patterns."
+    },
+    "ecosystem": {
+      "type": "string",
+      "enum": [
+        "Go",
+        "npm",
+        "OSS-Fuzz",
+        "PyPI",
+        "RubyGems",
+        "crates.io",
+        "Packagist",
+        "Maven",
+        "NuGet",
+        "Linux",
+        "Debian",
+        "Alpine",
+        "Hex",
+        "Android",
+        "GitHub Actions",
+        "Pub",
+        "ConanCenter",
+        "Rocky Linux",
+        "AlmaLinux",
+        "Bitnami",
+        "Photon OS",
+        "CRAN",
+        "Bioconductor",
+        "SwiftURL"
+      ]
+    },
+    "packageRef": {
+      "type": "string",
+      "pattern": "^[^:]+:.+$",
+      "minLength": 1,
+      "description": "A package identifier in the form <ecosystem>:<name>."
+    }
+  }
+}
