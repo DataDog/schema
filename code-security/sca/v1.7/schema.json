@@ -57,9 +57,9 @@
     },
     "packageRef": {
       "type": "string",
-      "pattern": "^[^:]+:.+$",
+      "pattern": "^(Go|npm|OSS-Fuzz|PyPI|RubyGems|crates\\.io|Packagist|Maven|NuGet|Linux|Debian|Alpine|Hex|Android|GitHub Actions|Pub|ConanCenter|Rocky Linux|AlmaLinux|Bitnami|Photon OS|CRAN|Bioconductor|SwiftURL):.+$",
       "minLength": 1,
-      "description": "A package identifier in the form <ecosystem>:<name>."
+      "description": "A package identifier in the form <ecosystem>:<name>, where <ecosystem> must match one of the values in the ecosystem enum."
     }
   }
 }
