@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_servicenow.schema.json",
+  "type": "object",
+  "description": "A ServiceNow integration schema",
+  "required": ["serviceURL"],
+  "additionalProperties": false,
+  "properties": {
+    "serviceURL": {
+      "type": "string",
+      "pattern": "^https?://[a-zA-Z0-9][a-zA-Z0-9-]*\\.service-now\\.com/.*sys_id(=|%3[Dd])[a-fA-F0-9]{32}",
+      "description": "The URL of the ServiceNow service that owns this service. To obtain this value, in ServiceNow go to All > Service Portfolio Management > Services, click the service, then copy the URL from your browser's address bar. That URL contains both the ServiceNow instance and the service's sys_id, which are the two values Datadog reads from it. The instance is needed because a sys_id is only unique within a single instance, and an organization can connect more than one."
+    }
+  }
+}
