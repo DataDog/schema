@@ -1,5 +1,8 @@
 # Schemas
 
+## v1.7
+* Add SCA `ignore-ecosystems` and `ignore-packages` configuration
+
 ## v1.6
 * Add secrets scanner `experimental-ast-filter` configuration
 
