@@ -10,6 +10,7 @@
     "jiraServiceManagementOps": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_jsm_ops.schema.json"},
     "sentry": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_sentry.schema.json"},
     "terraform": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_terraform.schema.json"},
-    "servicenow": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_servicenow.schema.json"}
+    "servicenow": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_servicenow.schema.json"},
+    "argocd": {"$ref": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_argocd.schema.json"}
   }
 }

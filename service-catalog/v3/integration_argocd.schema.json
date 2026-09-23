@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/DataDog/schema/main/service-catalog/v3/integration_argocd.schema.json",
+  "type": "object",
+  "description": "An ArgoCD integration schema",
+  "required": ["applications"],
+  "additionalProperties": false,
+  "properties": {
+    "applications": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*$"
+      },
+      "description": "The ArgoCD Applications, as <namespace>/<name> (e.g. argocd/e2e-app-01), associated with the entity."
+    }
+  }
+}
