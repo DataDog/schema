@@ -1,5 +1,8 @@
 # Schemas
 
+## v1.8
+* Add IaC `global-config.plan-scanning` configuration (`enabled`)
+
 ## v1.7
 * Add SCA `ignore-ecosystems` and `ignore-packages` configuration
 
