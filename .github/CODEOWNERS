@@ -6,6 +6,7 @@
 *                       @DataDog/idp @DataDog/k9-vm-code-security
 
 ## Subdirectories
+/datadog-agent          @DataDog/fleet-automation
 /datadog-ci             @DataDog/datadog-ci-admins
 /service-catalog        @DataDog/idp
 /semantic-core          @DataDog/semantic-core
